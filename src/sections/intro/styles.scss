@@ -62,6 +62,11 @@
   user-select: none;
   cursor: pointer;
 
+}
+
+.greeting-letter.not-animating, .presenting-letter {
+  transition-duration: 200ms;
+
   &:hover {
     transform: translateY(-50px) !important;
     transition: 200ms;

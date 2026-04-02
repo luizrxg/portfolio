@@ -5,13 +5,13 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useGSAP } from "@gsap/react";
 import './styles.scss';
 import separateLetters from "@/utils/elements";
-import {useRef} from "react";
+import {useRef, useState} from "react";
 import Letters from "@/components/common/text/letters/letters";
 
 gsap.registerPlugin(ScrollTrigger);
 
 export default function Intro() {
-
+  const [introAnimationCompleted, setIntroAnimationCompleted] = useState(false);
   const container = useRef(null);
 
   useGSAP(() => {
@@ -26,7 +26,8 @@ export default function Intro() {
         y: 0,
         opacity: .5,
         stagger: 0.2,
-        ease: "back.out"
+        ease: "back.out",
+        onComplete: () => setIntroAnimationCompleted(true)
       }
     );
 
@@ -80,13 +81,13 @@ export default function Intro() {
       <div className="greeting-text">
         <Letters
           id="greeting-letter"
-          letterClassName="greeting-letter"
+          letterClassName={`greeting-letter ${introAnimationCompleted ? 'not-animating' : ''}`}
         >
           Hi,
         </Letters>
         <Letters
           id="greeting-letter"
-          letterClassName="greeting-letter"
+          letterClassName={`greeting-letter ${introAnimationCompleted ? 'not-animating' : ''}`}
         >
           I'm Luiz
         </Letters>
