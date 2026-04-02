@@ -78,13 +78,13 @@ export default function Intro() {
       <div className="greeting-text">
         <Letters
           id="greeting-letter"
-          className="greeting-letter"
+          letterClassName="greeting-letter"
         >
           Hi,
         </Letters>
         <Letters
           id="greeting-letter"
-          className="greeting-letter"
+          letterClassName="greeting-letter"
         >
           I'm Luiz
         </Letters>
@@ -93,9 +93,13 @@ export default function Intro() {
       <div className="hills"/>
 
       <div className="presenting-text-container">
-        <h1 className="presenting-text">
+        <Letters
+          id="presenting-letter"
+          letterClassName="presenting-letter"
+          containerClassName="presenting-text"
+        >
           Front-end Developer
-        </h1>
+        </Letters>
       </div>
     </div>
   )

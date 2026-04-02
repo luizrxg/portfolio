@@ -55,11 +55,17 @@
   opacity: 0;
 }
 
-.greeting-letter {
+.greeting-letter, .presenting-letter {
   display: inline-block;
   min-width: .4ch;
   height: 100%;
   user-select: none;
+  cursor: pointer;
+  transition: 200ms ease-in-out;
+
+  &:hover {
+    transform: translateY(-50px) !important;
+  }
 }
 
 .hills {
