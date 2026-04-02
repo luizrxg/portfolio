@@ -1,3 +1,5 @@
+@import "tailwindcss";
+
 html {
   overflow: hidden;
 }
@@ -8,7 +10,8 @@ body {
   flex-direction: column;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  overflow-y: auto
+  overflow-y: auto;
+  position: relative;
 }
 
 html,
