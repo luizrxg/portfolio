@@ -34,6 +34,7 @@ export default function Intro() {
       '[id^="greeting-letter-"]',
       {
         y: 0,
+        filter: 'none',
         opacity: 0.5
       },
       {
@@ -50,6 +51,7 @@ export default function Intro() {
         },
         y: -300,
         opacity: 0,
+        filter: 'blur(20px)',
         stagger: 0.2,
         immediateRender: false
       }

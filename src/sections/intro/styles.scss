@@ -47,8 +47,8 @@
   user-select: none;
   width: fit-content;
   white-space: nowrap;
-  opacity: .8;
-  text-shadow: 0 0 5px #fff;
+  opacity: .7;
+  text-shadow: 0 0 5px #ffffff50;
 }
 
 .greeting-letter {
@@ -61,10 +61,10 @@
   height: 100%;
   user-select: none;
   cursor: pointer;
-  transition: 200ms ease-in-out;
 
   &:hover {
     transform: translateY(-50px) !important;
+    transition: 200ms;
   }
 }
 
