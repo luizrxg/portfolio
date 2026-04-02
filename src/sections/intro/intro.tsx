@@ -6,6 +6,7 @@ import { useGSAP } from "@gsap/react";
 import './styles.scss';
 import separateLetters from "@/utils/elements";
 import {useRef} from "react";
+import Letters from "@/components/common/text/letters/letters";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -38,7 +39,7 @@ export default function Intro() {
       {
         scrollTrigger: {
           trigger: '.intro',
-          start: 'top+=200 top',
+          start: 'top top',
           end: '+=300',
           scrub: 1,
           onUpdate: () => {
@@ -75,8 +76,18 @@ export default function Intro() {
   return (
     <div className="intro" ref={container}>
       <div className="greeting-text">
-        <h1>{separateLetters("Hi,", "greeting-letter", "greeting-letter")}</h1>
-        <h1>{separateLetters("I'm Luiz", "greeting-letter", "greeting-letter")}</h1>
+        <Letters
+          id="greeting-letter"
+          className="greeting-letter"
+        >
+          Hi,
+        </Letters>
+        <Letters
+          id="greeting-letter"
+          className="greeting-letter"
+        >
+          I'm Luiz
+        </Letters>
       </div>
 
       <div className="hills"/>

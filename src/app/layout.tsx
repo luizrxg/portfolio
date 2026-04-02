@@ -1,28 +1,16 @@
-import type { Metadata } from "next";
-import { Asap as DefaultFont, Lilita_One as CondensedFont } from "next/font/google";
+import type {Metadata} from "next";
+import localFont from "next/font/local";
 import "./globals.scss";
 import {ReactNode} from "react";
-import { gsap } from "gsap";
 
-const defaultFont = DefaultFont({
+const defaultFont = localFont({
+  src: "../../public/assets/fonts/satoshi/Satoshi-Variable.ttf",
   variable: "--font-default",
-  subsets: ["latin"],
 });
 
-const condensedFont = CondensedFont({
-  weight: [
-    // '100',
-    // '200',
-    // '300',
-    '400',
-    // '500',
-    // '600',
-    // '700',
-    // '800',
-    // '900'
-  ],
-  variable: "--font-condensed",
-  subsets: ["latin"],
+const displayFont = localFont({
+  src: "../../public/assets/fonts/clash_display/ClashDisplay-Variable.ttf",
+  variable: "--font-display",
 });
 
 export const metadata: Metadata = {
@@ -39,7 +27,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${defaultFont.className} ${condensedFont.variable}`}
+      className={`${defaultFont.className} ${displayFont.variable}`}
     >
       <body>
         {children}
