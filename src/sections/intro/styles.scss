@@ -5,9 +5,10 @@
   justify-content: space-between;
   min-height: 1300px;
   position: relative;
-  background-image: url("/assets/images/hills-background.jpg");
-  background-size: cover;
-  background-position: bottom;
+  //background-image: url("/assets/images/hills-background.jpg");
+  //background-size: cover;
+  //background-position: bottom;
+  background-color: #02A2D2;
   overflow: hidden;
 }
 
@@ -22,7 +23,7 @@
   & > h1 {
     font-weight: 900;
     font-size: 13rem;
-    color: #52696e;
+    color: #F0F8FF;
     line-height: 1;
   }
 }
@@ -69,7 +70,6 @@
 
   &:hover {
     transform: translateY(-50px) !important;
-    transition: 200ms;
   }
 }
 
@@ -83,4 +83,10 @@
   background-image: url("/assets/images/hills.png");
   background-size: cover;
   background-position: bottom;
+}
+
+.cloud {
+  position: absolute;
+  top: 15rem;
+  pointer-events: none;
 }

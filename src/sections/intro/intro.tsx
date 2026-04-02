@@ -1,12 +1,12 @@
 "use client"
 
 import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { useGSAP } from "@gsap/react";
-import './styles.scss';
-import separateLetters from "@/utils/elements";
+import {ScrollTrigger} from 'gsap/ScrollTrigger';
+import {useGSAP} from "@gsap/react";
 import {useRef, useState} from "react";
-import Letters from "@/components/common/text/letters/letters";
+import Letters from "@/components/letters/letters";
+import './styles.scss';
+import Image from "next/image";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -24,7 +24,7 @@ export default function Intro() {
       {
         duration: .5,
         y: 0,
-        opacity: .5,
+        opacity: .8,
         stagger: 0.2,
         ease: "back.out",
         onComplete: () => setIntroAnimationCompleted(true)
@@ -36,7 +36,7 @@ export default function Intro() {
       {
         y: 0,
         filter: 'none',
-        opacity: 0.5
+        opacity: .8
       },
       {
         scrollTrigger: {
@@ -66,18 +66,37 @@ export default function Intro() {
       {
         scrollTrigger: {
           trigger: '.intro',
-          pin: true,
-          start: 'top top',
-          end: '+=1000',
+          start: 'top+=200 top',
+          end: '+=1200',
           scrub: 1,
         },
         x: -2000,
       }
     )
+
+    gsap.fromTo('.cloud', {
+      right: 100,
+    }, {
+      scrollTrigger: {
+        trigger: '.intro',
+        start: 'top top',
+        end: '+=2500',
+        scrub: 2,
+      },
+      right: '100vw',
+    })
   }, { scope: container });
 
   return (
     <div className="intro" ref={container}>
+
+      <Image
+        src="/assets/images/cloud.png"
+        alt="cloud"
+        className="cloud"
+        width={800}
+        height={345}
+      />
       <div className="greeting-text">
         <Letters
           id="greeting-letter"
