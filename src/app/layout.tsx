@@ -3,7 +3,6 @@ import localFont from "next/font/local";
 import "./globals.scss";
 import {ReactNode} from "react";
 import {cn} from "@/utils/string";
-import FluidGlass from "@/components/fluid-glass/fluid-glass";
 
 const defaultFont = localFont({
   src: "../../public/assets/fonts/satoshi/Satoshi-Variable.ttf",
@@ -33,16 +32,6 @@ export default function RootLayout({
     >
       <body>
         {children}
-        <FluidGlass
-          mode="lens"
-          lensProps={{
-            scale: 0.25,
-            ior: 1.15,
-            thickness: 5,
-            chromaticAberration: 0.1,
-            anisotropy: 0.01
-          }}
-        />
       </body>
     </html>
   );
