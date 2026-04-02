@@ -1,0 +1,71 @@
+.intro {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 1300px;
+  position: relative;
+  background-image: url("/assets/images/hills-background.jpg");
+  background-size: cover;
+  background-position: bottom;
+  overflow: hidden;
+}
+
+.greeting-text {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  margin-top: 14.5rem;
+  margin-left: 16rem;
+  margin-right: auto;
+
+  & > h1 {
+    font-weight: 900;
+    font-size: 13rem;
+    color: #52696e;
+    line-height: 1;
+  }
+}
+
+.presenting-text-container {
+  position: absolute;
+  display: flex;
+  min-width: 100vw;
+  flex-direction: column;
+  align-items: start;
+  z-index: 20;
+  left: 0;
+  bottom: 200px;
+  padding-top: 10rem;
+}
+
+.presenting-text{
+  font-weight: 900;
+  font-size: 13rem;
+  color: aliceblue;
+  line-height: 1;
+  user-select: none;
+}
+
+.greeting-letter {
+  opacity: 0;
+}
+
+.greeting-letter {
+  display: inline-block;
+  min-width: .4ch;
+  height: 100%;
+  user-select: none;
+}
+
+.hills {
+  width: 100%;
+  min-height: 1300px;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  pointer-events: none;
+  background-image: url("/assets/images/hills.png");
+  background-size: cover;
+  background-position: bottom;
+}

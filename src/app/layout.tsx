@@ -1,16 +1,27 @@
 import type { Metadata } from "next";
-import { Asap, Asap_Condensed } from "next/font/google";
+import { Asap as DefaultFont, Lilita_One as CondensedFont } from "next/font/google";
 import "./globals.scss";
 import {ReactNode} from "react";
+import { gsap } from "gsap";
 
-const asap = Asap({
-  variable: "--font-asap",
+const defaultFont = DefaultFont({
+  variable: "--font-default",
   subsets: ["latin"],
 });
 
-const asapCondensed = Asap_Condensed({
-  weight: ['200', '300', '400', '500', '600', '700', '800', '900'],
-  variable: "--font-asap-condensed",
+const condensedFont = CondensedFont({
+  weight: [
+    // '100',
+    // '200',
+    // '300',
+    '400',
+    // '500',
+    // '600',
+    // '700',
+    // '800',
+    // '900'
+  ],
+  variable: "--font-condensed",
   subsets: ["latin"],
 });
 
@@ -24,10 +35,11 @@ export default function RootLayout({
 }: Readonly<{
   children: ReactNode;
 }>) {
+
   return (
     <html
       lang="en"
-      className={`${asap.variable} ${asapCondensed.variable}`}
+      className={`${defaultFont.className} ${condensedFont.variable}`}
     >
       <body>
         {children}
