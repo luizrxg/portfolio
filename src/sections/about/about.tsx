@@ -1,22 +1,15 @@
-"use client"
+'use client'
 
 import './styles.scss';
+import Lanyard from "@/components/lanyard/lanyard";
 
 export default function About() {
-
-  // useGSAP(() => {
-  //   tl.fromTo(
-  //
-  //   );
-  //
-  //
-  // }, {scope: container});
-  //
 
   return (
     <div
       className="about"
     >
+      <Lanyard />
 
     </div>
   )

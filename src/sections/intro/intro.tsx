@@ -66,8 +66,8 @@ export default function Intro() {
       {
         scrollTrigger: {
           trigger: '.intro',
-          start: 'top+=200 top',
-          end: '+=1200',
+          start: 'top top',
+          end: '+=1400',
           scrub: 1,
         },
         x: -2000,
