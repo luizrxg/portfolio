@@ -15,7 +15,7 @@ export default function About() {
     gsap.fromTo(
       '.waves',
       {
-        x: -5000,
+        x: -4000,
       },
       {
         scrollTrigger: {
@@ -25,6 +25,21 @@ export default function About() {
           scrub: 1,
         },
         x: 4000,
+      }
+    )
+
+    gsap.fromTo(
+      '.lanyard-wrapper',
+      {
+        x: 2000,
+      },
+      {
+        scrollTrigger: {
+          trigger: '.about',
+          start: 'top+=500 top',
+        },
+        x: 0,
+        ease: "elastic.out",
       }
     )
   }, { scope: container })

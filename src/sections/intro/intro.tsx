@@ -61,7 +61,7 @@ export default function Intro() {
     gsap.fromTo(
       '.presenting-text-container',
       {
-        x: 2000,
+        x: -2000,
       },
       {
         scrollTrigger: {
@@ -70,7 +70,7 @@ export default function Intro() {
           end: '+=1400',
           scrub: 1,
         },
-        x: -2000,
+        x: -6000,
       }
     )
 
@@ -130,7 +130,7 @@ export default function Intro() {
           letterClassName="presenting-letter"
           containerClassName="presenting-text"
         >
-          Front-end Developer
+          Front-end Developer ✦ Front-end Developer ✦ Front-end Developer ✦ Front-end Developer
         </Letters>
       </div>
     </div>
