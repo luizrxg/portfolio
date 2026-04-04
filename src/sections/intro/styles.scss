@@ -75,14 +75,12 @@
 
 .hills {
   width: 100%;
-  min-height: 1300px;
+  max-height: 1300px;
   position: absolute;
   bottom: 0;
   left: 0;
   pointer-events: none;
-  background-image: url("/assets/images/hills.png");
-  background-size: cover;
-  background-position: bottom;
+  object-fit: cover;
 }
 
 .cloud {

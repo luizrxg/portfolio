@@ -22,11 +22,11 @@ export default function Intro() {
         y: 300
       },
       {
-        duration: .5,
+        duration: 2,
         y: 0,
         opacity: .8,
         stagger: 0.2,
-        ease: "back.out",
+        ease: "elastic.out(1, 0.5)",
         onComplete: () => setIntroAnimationCompleted(true)
       }
     );
@@ -80,7 +80,7 @@ export default function Intro() {
       scrollTrigger: {
         trigger: '.intro',
         start: 'top top',
-        end: '+=2500',
+        end: '+=1000',
         scrub: 2,
       },
       right: '100vw',
@@ -92,10 +92,12 @@ export default function Intro() {
 
       <Image
         src="/assets/images/cloud.png"
-        alt="cloud"
+        alt="Cloud"
         className="cloud"
         width={800}
         height={345}
+        loading="eager"
+        priority
       />
       <div className="greeting-text">
         <Letters
@@ -112,7 +114,15 @@ export default function Intro() {
         </Letters>
       </div>
 
-      <div className="hills"/>
+      <Image
+        src="/assets/images/hills.png"
+        alt="Hills"
+        className="hills"
+        width={5760}
+        height={3838}
+        loading="eager"
+        priority
+      />
 
       <div className="presenting-text-container">
         <Letters

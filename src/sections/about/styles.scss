@@ -5,8 +5,14 @@
   justify-content: center;
   position: relative;
   min-height: 1300px;
-  background-image: url("/assets/images/hills-flipped.png");
-  background-size: cover;
-  background-position: top;
   background-color: #0c0c1e;
+
+}
+
+.waves {
+  position: absolute;
+  height: 45px;
+  top: -42px;
+  left: 0;
+  fill: #0c0c1e;
 }
