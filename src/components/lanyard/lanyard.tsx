@@ -2,7 +2,7 @@
 
 import './styles.scss'
 import GlassSurface from "@/components/glass-surface/glass-surface";
-import {IconRepeat} from "@tabler/icons-react";
+import {IconRepeat, IconFingerprint} from "@tabler/icons-react";
 import {useState} from "react";
 import Image from "next/image";
 
@@ -32,6 +32,11 @@ export default function Lanyard() {
           className="lanyard-flip-icon"
         >
           <IconRepeat />
+        </div>
+        <div
+          className="lanyard-fingerprint-icon"
+        >
+          <IconFingerprint />
         </div>
         <aside className="lanyard-content">
           <div>

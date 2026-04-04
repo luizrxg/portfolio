@@ -36,7 +36,7 @@ export default function About() {
       {
         scrollTrigger: {
           trigger: '.about',
-          start: 'top+=500 top',
+          start: 'top+=1000 top',
         },
         x: 0,
         ease: "elastic.out",
