@@ -4,8 +4,9 @@
   align-items: end;
   justify-content: start;
   position: relative;
-  min-height: 1300px;
+  min-height: 4000px;
   background-color: #0a0a0a;
+  perspective: 4000px;
 }
 
 .waves {
@@ -24,7 +25,7 @@
   width: 1100px;
   height: 800px;
   margin: 100px;
-  position: relative;
+  position: sticky;
   perspective: 1200px;
 
   & > img {

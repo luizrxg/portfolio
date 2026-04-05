@@ -8,6 +8,7 @@ import {useMemo, useRef, useState} from "react";
 import gsap from "gsap";
 import StickerPeel from "@/components/sticker-peel/sticker-peel";
 import Image from "next/image";
+import Hyperspeed from "@/components/hyperspeed/hyperspeed";
 
 export default function About() {
 
@@ -62,10 +63,25 @@ export default function About() {
           start: 'top+=1000 top',
           end: '+=400',
           scrub: 1,
-          pinType: 'fixed',
         },
         rotateX: 0,
         y: 0,
+        filter: 'drop-shadow(0px -100px 100px #C2E3FF75)',
+      }
+    )
+
+    gsap.to(
+      '.stickers-container',
+      {
+        scrollTrigger: {
+          trigger: '#about',
+          start: 'top+=1400 top',
+          end: '+=400',
+          scrub: 1,
+          pin: true
+        },
+        rotateY: 180,
+        filter: 'none',
       }
     )
 
