@@ -23,7 +23,7 @@
   width: 1200px;
   height: 800px;
   margin: 100px;
-  background-image: url("/assets/images/pinboard.png");
+  background-image: url("/assets/images/macbook.png");
   background-position: center;
   background-size: cover;
 }
@@ -32,6 +32,9 @@
   display: flex;
   position: relative;
   width: calc(100% - 95px);
-  height: calc(100% - 70px);
-  border: red 1px solid;
+  height: calc(100% - 20px);
+
+  & .draggable:hover {
+    transform: scale(1.1);
+  }
 }

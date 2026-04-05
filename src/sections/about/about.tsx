@@ -33,6 +33,7 @@ export default function About() {
       '.tilted-card-wrapper',
       {
         x: -2000,
+        rotate3d: '0, 1, 0, 720deg',
       },
       {
         scrollTrigger: {
@@ -40,7 +41,24 @@ export default function About() {
           start: 'top+=1000 top',
         },
         x: 0,
-        ease: "elastic.out(1, 0.5)",
+        rotate3d: '0, 1, 0, 0deg',
+        ease: "elastic.out(.2, 0.1)",
+        duration: 2,
+      }
+    )
+
+    gsap.fromTo(
+      '.stickers-container',
+      {
+        scale: 0,
+      },
+      {
+        scrollTrigger: {
+          trigger: '.about',
+          start: 'top+=1000 top',
+        },
+        scale: 1,
+        ease: "elastic.out",
         duration: 2,
       }
     )
@@ -51,8 +69,8 @@ export default function About() {
     rotate: 0,
     peelBackHoverPct: 40,
     peelBackActivePct: 50,
-    shadowIntensity: .6,
-    lightingIntensity: .5,
+    shadowIntensity: 0,
+    lightingIntensity: 1,
   }
 
   return (
@@ -82,6 +100,18 @@ export default function About() {
             imageSrc={'/assets/images/angular.png'}
             initialPosition={{ x: 50, y: 70 }}
             peelDirection={243}
+            {...stickerProps}
+          />
+          <StickerPeel
+            imageSrc={'/assets/images/gsap.png'}
+            initialPosition={{ x: 50, y: 70 }}
+            peelDirection={243}
+            {...stickerProps}
+          />
+          <StickerPeel
+            imageSrc={'/assets/images/typescript.png'}
+            initialPosition={{ x: 50, y: 70 }}
+            peelDirection={30}
             {...stickerProps}
           />
         </div>

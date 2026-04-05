@@ -80,10 +80,27 @@ const StickerPeel: React.FC<StickerPeelProps> = ({
 
     const boundsEl = target.parentNode as HTMLElement;
 
+    gsap.set(target, { transformOrigin: 'center center' });
+
+    const animateScale = (scale: number) => {
+      gsap.to(target, {
+        scale,
+        duration: 0.22,
+        ease: 'elastic.out',
+        overwrite: 'auto'
+      });
+    };
+
     const draggable = Draggable.create(target, {
       type: 'x,y',
       bounds: boundsEl,
       inertia: true,
+      onPress() {
+        animateScale(1.1);
+      },
+      onRelease() {
+        animateScale(1);
+      },
       onDrag(this: Draggable) {
         const rot = gsap.utils.clamp(-24, 24, this.deltaX * 0.4);
         gsap.to(target, { rotation: rot, duration: 0.15, ease: 'elastic.out' });
