@@ -1,4 +1,4 @@
-import { useRef, useEffect, useMemo, CSSProperties } from 'react';
+import { useRef, useEffect, useMemo, CSSProperties, useId } from 'react';
 import { gsap } from 'gsap';
 import { Draggable } from 'gsap/Draggable';
 import './styles.scss';
@@ -31,6 +31,10 @@ interface CSSVars extends CSSProperties {
   '--sticker-shadow-opacity'?: number;
   '--sticker-lighting-constant'?: number;
   '--peel-direction'?: string;
+  '--sticker-filter-point-light'?: string;
+  '--sticker-filter-point-light-flipped'?: string;
+  '--sticker-filter-shadow'?: string;
+  '--sticker-filter-expand-fill'?: string;
 }
 
 const StickerPeel: React.FC<StickerPeelProps> = ({
@@ -52,8 +56,41 @@ const StickerPeel: React.FC<StickerPeelProps> = ({
   const pointLightRef = useRef<SVGFEPointLightElement>(null);
   const pointLightFlippedRef = useRef<SVGFEPointLightElement>(null);
   const draggableInstanceRef = useRef<Draggable | null>(null);
+  const isPointerDownRef = useRef(false);
+  const peelDirectionRef = useRef(peelDirection);
+  const instanceId = useId().replace(/:/g, '');
+
+  const pointLightId = `pointLight-${instanceId}`;
+  const pointLightFlippedId = `pointLightFlipped-${instanceId}`;
+  const dropShadowId = `dropShadow-${instanceId}`;
+  const expandAndFillId = `expandAndFill-${instanceId}`;
 
   const defaultPadding = 10;
+
+  const updateLightPosition = (clientX: number, clientY: number) => {
+    const rect = containerRef.current?.getBoundingClientRect();
+    if (!rect) return;
+
+    const x = clientX - rect.left;
+    const y = clientY - rect.top;
+
+    if (pointLightRef.current) {
+      gsap.set(pointLightRef.current, { attr: { x, y } });
+    }
+
+    const normalizedAngle = Math.abs(peelDirectionRef.current % 360);
+    if (pointLightFlippedRef.current) {
+      if (normalizedAngle !== 180) {
+        gsap.set(pointLightFlippedRef.current, {
+          attr: { x, y: rect.height - y }
+        });
+      } else {
+        gsap.set(pointLightFlippedRef.current, {
+          attr: { x: -1000, y: -1000 }
+        });
+      }
+    }
+  };
 
   useEffect(() => {
     const target = dragTargetRef.current;
@@ -95,17 +132,22 @@ const StickerPeel: React.FC<StickerPeelProps> = ({
       type: 'x,y',
       bounds: boundsEl,
       inertia: true,
-      onPress() {
+      onPress(this: Draggable) {
+        isPointerDownRef.current = true;
         animateScale(1.1);
+        updateLightPosition(this.pointerX, this.pointerY);
       },
       onRelease() {
+        isPointerDownRef.current = false;
         animateScale(1);
       },
       onDrag(this: Draggable) {
         const rot = gsap.utils.clamp(-24, 24, this.deltaX * 0.4);
         gsap.to(target, { rotation: rot, duration: 0.15, ease: 'elastic.out' });
+        updateLightPosition(this.pointerX, this.pointerY);
       },
       onDragEnd() {
+        isPointerDownRef.current = false;
         const rotationEase = 'elastic.out';
         const duration = 0.8;
         gsap.to(target, { rotation: 0, duration, ease: rotationEase });
@@ -150,44 +192,30 @@ const StickerPeel: React.FC<StickerPeelProps> = ({
       if (draggableInstanceRef.current) {
         draggableInstanceRef.current.kill();
       }
+      isPointerDownRef.current = false;
     };
   }, []);
 
   useEffect(() => {
-    const updateLight = (e: Event) => {
-      const mouseEvent = e as MouseEvent;
-      const rect = containerRef.current?.getBoundingClientRect();
-      if (!rect) return;
+    peelDirectionRef.current = peelDirection;
+  }, [peelDirection]);
 
-      const x = mouseEvent.clientX - rect.left;
-      const y = mouseEvent.clientY - rect.top;
+  useEffect(() => {
+    const container = containerRef.current;
+    if (!container) return;
 
-      if (pointLightRef.current) {
-        gsap.set(pointLightRef.current, { attr: { x, y } });
-      }
-
-      const normalizedAngle = Math.abs(peelDirection % 360);
-      if (pointLightFlippedRef.current) {
-        if (normalizedAngle !== 180) {
-          gsap.set(pointLightFlippedRef.current, {
-            attr: { x, y: rect.height - y }
-          });
-        } else {
-          gsap.set(pointLightFlippedRef.current, {
-            attr: { x: -1000, y: -1000 }
-          });
-        }
+    const handleMouseMove = (e: MouseEvent) => {
+      if (!isPointerDownRef.current) {
+        updateLightPosition(e.clientX, e.clientY);
       }
     };
 
-    const container = containerRef.current;
-    const eventType = 'mousemove';
+    container.addEventListener('mousemove', handleMouseMove);
 
-    if (container) {
-      container.addEventListener(eventType, updateLight);
-      return () => container.removeEventListener(eventType, updateLight);
-    }
-  }, [peelDirection]);
+    return () => {
+      container.removeEventListener('mousemove', handleMouseMove);
+    };
+  }, []);
 
   useEffect(() => {
     const container = containerRef.current;
@@ -223,7 +251,11 @@ const StickerPeel: React.FC<StickerPeelProps> = ({
       '--sticker-width': `${width}px`,
       '--sticker-shadow-opacity': shadowIntensity,
       '--sticker-lighting-constant': lightingIntensity,
-      '--peel-direction': `${peelDirection}deg`
+      '--peel-direction': `${peelDirection}deg`,
+      '--sticker-filter-point-light': `url(#${pointLightId})`,
+      '--sticker-filter-point-light-flipped': `url(#${pointLightFlippedId})`,
+      '--sticker-filter-shadow': `url(#${dropShadowId})`,
+      '--sticker-filter-expand-fill': `url(#${expandAndFillId})`
     }),
     [
       rotate,
@@ -234,7 +266,11 @@ const StickerPeel: React.FC<StickerPeelProps> = ({
       width,
       shadowIntensity,
       lightingIntensity,
-      peelDirection
+      peelDirection,
+      pointLightId,
+      pointLightFlippedId,
+      dropShadowId,
+      expandAndFillId
     ]
   );
 
@@ -242,7 +278,7 @@ const StickerPeel: React.FC<StickerPeelProps> = ({
     <div className={`draggable ${className}`} ref={dragTargetRef} style={cssVars}>
       <svg width="0" height="0">
         <defs>
-          <filter id="pointLight">
+          <filter id={pointLightId}>
             <feGaussianBlur stdDeviation="1" result="blur" />
             <feSpecularLighting
               result="spec"
@@ -257,7 +293,7 @@ const StickerPeel: React.FC<StickerPeelProps> = ({
             <feComposite in="lit" in2="SourceAlpha" operator="in" />
           </filter>
 
-          <filter id="pointLightFlipped">
+          <filter id={pointLightFlippedId}>
             <feGaussianBlur stdDeviation="10" result="blur" />
             <feSpecularLighting
               result="spec"
@@ -272,7 +308,7 @@ const StickerPeel: React.FC<StickerPeelProps> = ({
             <feComposite in="lit" in2="SourceAlpha" operator="in" />
           </filter>
 
-          <filter id="dropShadow">
+          <filter id={dropShadowId}>
             <feDropShadow
               dx="2"
               dy="4"
@@ -282,7 +318,7 @@ const StickerPeel: React.FC<StickerPeelProps> = ({
             />
           </filter>
 
-          <filter id="expandAndFill">
+          <filter id={expandAndFillId}>
             <feOffset dx="0" dy="0" in="SourceAlpha" result="shape" />
             <feFlood floodColor="rgb(179,179,179)" result="flood" />
             <feComposite operator="in" in="flood" in2="shape" />

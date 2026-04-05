@@ -10,6 +10,10 @@
   --sticker-shadow-opacity: 0.6;
   --sticker-lighting-constant: 0.1;
   --peel-direction: 0deg;
+  --sticker-filter-point-light: url(#pointLight);
+  --sticker-filter-point-light-flipped: url(#pointLightFlipped);
+  --sticker-filter-shadow: url(#dropShadow);
+  --sticker-filter-expand-fill: url(#expandAndFill);
 }
 
 .sticker-container {
@@ -33,7 +37,7 @@
       var(--sticker-start) var(--sticker-end)
   );
   transition: clip-path 0.6s ease-out;
-  filter: url(#dropShadow);
+  filter: var(--sticker-filter-shadow);
 }
 
 .sticker-main > * {
@@ -41,7 +45,7 @@
 }
 
 .sticker-lighting {
-  filter: url(#pointLight);
+  filter: var(--sticker-filter-point-light);
 }
 
 .sticker-container:hover .sticker-main,
@@ -109,12 +113,12 @@
 }
 
 .flap-lighting {
-  filter: url(#pointLightFlipped);
+  filter: var(--sticker-filter-point-light-flipped);
 }
 
 .flap-image {
   transform: rotate(var(--sticker-rotate));
-  filter: url(#expandAndFill);
+  filter: var(--sticker-filter-expand-fill);
 }
 
 .draggable {

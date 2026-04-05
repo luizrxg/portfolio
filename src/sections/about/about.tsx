@@ -70,7 +70,7 @@ export default function About() {
     peelBackHoverPct: 40,
     peelBackActivePct: 50,
     shadowIntensity: 0,
-    lightingIntensity: 1,
+    lightingIntensity: .3,
   }
 
   return (
