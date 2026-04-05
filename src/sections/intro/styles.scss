@@ -1,13 +1,10 @@
-.intro {
+#intro {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
   min-height: 1300px;
   position: relative;
-  //background-image: url("/assets/images/hills-background.jpg");
-  //background-size: cover;
-  //background-position: bottom;
   background-color: #02A2D2;
 }
 

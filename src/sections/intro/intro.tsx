@@ -7,6 +7,7 @@ import {useRef, useState} from "react";
 import Letters from "@/components/letters/letters";
 import './styles.scss';
 import Image from "next/image";
+import Ribbons from "@/components/ribbons/ribbons";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -40,7 +41,7 @@ export default function Intro() {
       },
       {
         scrollTrigger: {
-          trigger: '.intro',
+          trigger: '#intro',
           start: 'top top',
           end: '+=300',
           scrub: 1,
@@ -65,7 +66,7 @@ export default function Intro() {
       },
       {
         scrollTrigger: {
-          trigger: '.intro',
+          trigger: '#intro',
           start: 'top top',
           end: '+=1400',
           scrub: 1,
@@ -78,7 +79,7 @@ export default function Intro() {
       right: 100,
     }, {
       scrollTrigger: {
-        trigger: '.intro',
+        trigger: '#intro',
         start: 'top top',
         end: '+=1000',
         scrub: 3,
@@ -90,7 +91,7 @@ export default function Intro() {
       scale: 1,
     }, {
       scrollTrigger: {
-        trigger: '.intro',
+        trigger: '#intro',
         start: 'top top',
         end: '+=1000',
         scrub: 3,
@@ -100,7 +101,7 @@ export default function Intro() {
 
     gsap.to('.hills', {
       scrollTrigger: {
-        trigger: '.intro',
+        trigger: '#intro',
         start: 'top+=200 top',
         end: '+=1000',
         scrub: 1,
@@ -112,7 +113,7 @@ export default function Intro() {
   return (
     <div
       ref={container}
-      className="intro"
+      id="intro"
     >
       <Image
         src="/assets/images/cloud.png"

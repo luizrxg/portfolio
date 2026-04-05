@@ -24,7 +24,7 @@ export default function About() {
       },
       {
         scrollTrigger: {
-          trigger: '.about',
+          trigger: '#about',
           start: 'top top',
           end: '+=8000',
           scrub: 1,
@@ -41,7 +41,7 @@ export default function About() {
       },
       {
         scrollTrigger: {
-          trigger: '.about',
+          trigger: '#about',
           start: 'top+=1000 top',
         },
         x: 0,
@@ -58,7 +58,7 @@ export default function About() {
       },
       {
         scrollTrigger: {
-          trigger: '.about',
+          trigger: '#about',
           start: 'top+=1000 top',
           end: '+=400',
           scrub: 1,
@@ -77,7 +77,7 @@ export default function About() {
       },
       {
         scrollTrigger: {
-          trigger: '.about',
+          trigger: '#about',
           start: 'top+=1000 top',
           end: '+=400',
           scrub: 1,
@@ -134,7 +134,7 @@ export default function About() {
   return (
     <div
       ref={container}
-      className="about"
+      id="about"
     >
       <WaveSVG className="waves"/>
       <Lanyard />
