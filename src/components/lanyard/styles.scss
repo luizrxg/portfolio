@@ -2,7 +2,7 @@
   position: absolute;
   width: 400px;
   height: 600px;
-  top: 140px;
+  top: 210px;
   left: 140px;
 }
 
@@ -15,6 +15,7 @@
   height: 600px;
   z-index: 1;
   cursor: pointer;
+  perspective: 800px;
   transition: all .2s ease-out;
 
   &:hover {
@@ -41,22 +42,22 @@
   backface-visibility: hidden;
 
   &.flipped {
-    transform: rotate3d(0, 1, 0, 180deg);
+    transform: rotateY(180deg);
   }
 }
 
 .lanyard-container {
 
   &.flipped {
-    transform: rotate3d(0, 1, 0, 180deg);
+    transform: rotateY(180deg);
   }
 }
 
 .lanyard-back-container {
-  transform: rotate3d(0, 1, 0, 180deg);
+  transform: rotateY(180deg);
 
   &.flipped {
-    transform: none;
+    transform: rotateY(360deg);
   }
 }
 
@@ -84,7 +85,6 @@
 .lanyard-back-container > .lanyard-flip-icon {
   right: 2rem;
   top: 2rem;
-  transform: rotate3d(0, 1, 0, 180deg);
 }
 
 .lanyard-fingerprint-icon {
@@ -207,7 +207,7 @@
   transition: all .5s ease-out;
 
   &.flipped {
-    transform: rotate3d(0, 1, 0, 180deg);
+    transform: rotateY(180deg);
   }
 }
 

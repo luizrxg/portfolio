@@ -11,7 +11,7 @@ export default function Lanyard() {
   const [isFlipped, setIsFlipped] = useState(false);
 
   const flipCard = () => {
-    setIsFlipped(!isFlipped);
+    setIsFlipped(prev => !prev);
   }
 
   return (
