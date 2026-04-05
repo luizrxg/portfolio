@@ -63,10 +63,11 @@ export default function About() {
           start: 'top+=1000 top',
           end: '+=400',
           scrub: 1,
+
         },
         rotateX: 0,
         y: 0,
-        filter: 'drop-shadow(0px -100px 100px #C2E3FF75)',
+        onComplete: () => setMacbookOpen(true),
       }
     )
 
@@ -106,8 +107,8 @@ export default function About() {
 
   const stickerProps = {
     width: 150,
-    peelBackHoverPct: 40,
-    peelBackActivePct: 80,
+    peelBackHoverPct: 20,
+    peelBackActivePct: 30,
     shadowIntensity: .5,
     lightingIntensity: .1,
   }
@@ -143,10 +144,6 @@ export default function About() {
     ]
   }, []);
 
-  const toggleMacbookOpen = () => {
-    setMacbookOpen(prev => !prev);
-  }
-
   return (
     <div
       ref={container}
@@ -159,17 +156,15 @@ export default function About() {
       >
         <div
           className="macbook-base"
-          onClick={toggleMacbookOpen}
         />
         <Image
           src="/assets/images/macbook.png"
           alt="Macbook"
-          width={1414}
-          height={974}
+          width={3629}
+          height={2453}
           loading="eager"
           priority
           className={`macbook ${macbookOpen ? 'open' : ''}`}
-          onClick={toggleMacbookOpen}
         />
         <div className={`stickers-zone ${macbookOpen ? 'open' : ''}`}>
           {stickerItems.map((sticker) => (

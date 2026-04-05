@@ -98,16 +98,6 @@ export default function Intro() {
       },
       scale: 1.5,
     })
-
-    gsap.to('.hills', {
-      scrollTrigger: {
-        trigger: '#intro',
-        start: 'top+=200 top',
-        end: '+=1000',
-        scrub: 1,
-      },
-      sacle: 2,
-    })
   }, { scope: container });
 
   return (
