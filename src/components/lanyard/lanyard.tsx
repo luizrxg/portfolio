@@ -92,15 +92,14 @@ export default function Lanyard() {
               width={400}
               height={600}
               borderRadius={45}
-              displace={0}
+              displace={0.5}
               distortionScale={0}
               redOffset={0}
               greenOffset={0}
               blueOffset={0}
-              brightness={50}
-              opacity={0.93}
-              borderWidth={0}
-              mixBlendMode="color-burn"
+              brightness={1}
+              opacity={1}
+              mixBlendMode="screen"
               isDarkMode={true}
             />
           </div>
