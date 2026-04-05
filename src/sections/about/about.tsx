@@ -6,6 +6,7 @@ import WaveSVG from "@/assets/svgs/waves.svg";
 import {useGSAP} from "@gsap/react";
 import {useRef} from "react";
 import gsap from "gsap";
+import StickerPeel from "@/components/sticker-peel/sticker-peel";
 
 export default function About() {
 
@@ -29,9 +30,9 @@ export default function About() {
     )
 
     gsap.fromTo(
-      '.lanyard-wrapper',
+      '.tilted-card-wrapper',
       {
-        x: 2000,
+        x: -2000,
       },
       {
         scrollTrigger: {
@@ -39,18 +40,52 @@ export default function About() {
           start: 'top+=1000 top',
         },
         x: 0,
-        ease: "elastic.out",
+        ease: "elastic.out(1, 0.5)",
+        duration: 2,
       }
     )
   }, { scope: container })
+
+  const stickerProps = {
+    width: 200,
+    rotate: 0,
+    peelBackHoverPct: 40,
+    peelBackActivePct: 50,
+    shadowIntensity: .6,
+    lightingIntensity: .5,
+  }
 
   return (
     <div
       ref={container}
       className="about"
     >
-      <Lanyard />
       <WaveSVG className="waves"/>
+      <Lanyard />
+      <div
+        className="stickers-container"
+      >
+        <div className="stickers-zone">
+          <StickerPeel
+            imageSrc={'/assets/images/react.png'}
+            initialPosition={{ x: 0, y: 0 }}
+            peelDirection={67}
+            {...stickerProps}
+          />
+          <StickerPeel
+            imageSrc={'/assets/images/node.png'}
+            initialPosition={{ x: 50, y: 70 }}
+            peelDirection={243}
+            {...stickerProps}
+          />
+          <StickerPeel
+            imageSrc={'/assets/images/angular.png'}
+            initialPosition={{ x: 50, y: 70 }}
+            peelDirection={243}
+            {...stickerProps}
+          />
+        </div>
+      </div>
     </div>
   )
 }

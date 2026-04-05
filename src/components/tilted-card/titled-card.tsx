@@ -7,8 +7,8 @@ interface TiltedCardProps {
   className?: string;
   containerHeight?: CSSProperties['height'];
   containerWidth?: CSSProperties['width'];
-  imageHeight?: CSSProperties['height'];
-  imageWidth?: CSSProperties['width'];
+  height?: CSSProperties['height'];
+  width?: CSSProperties['width'];
   scaleOnHover?: number;
   rotateAmplitude?: number;
 }
@@ -22,10 +22,10 @@ const springValues: SpringOptions = {
 export default function TiltedCard({
   children,
   className,
-  containerHeight = '300px',
-  containerWidth = '100%',
-  imageHeight = '300px',
-  imageWidth = '300px',
+  containerHeight = '600px',
+  containerWidth = '400px',
+  height = '600px',
+  width = '400px',
   scaleOnHover = 1.1,
   rotateAmplitude = 14,
 }: TiltedCardProps) {
@@ -93,8 +93,8 @@ export default function TiltedCard({
       <motion.div
         className={`${className} relative [transform-style:preserve-3d]`}
         style={{
-          width: imageWidth,
-          height: imageHeight,
+          width: width,
+          height: height,
           rotateX,
           rotateY,
           scale

@@ -1,3 +1,11 @@
+.tilted-card-wrapper {
+  position: absolute;
+  width: 400px;
+  height: 600px;
+  top: 140px;
+  left: 140px;
+}
+
 .lanyard-wrapper {
   display: flex;
   align-items: center;
@@ -5,14 +13,14 @@
   position: absolute;
   width: 400px;
   height: 600px;
-  top: 230px;
-  right: 140px;
   z-index: 1;
   cursor: pointer;
   transition: all .2s ease-out;
 
   &:hover {
-    transform: scale(1.05) !important;
+    & .me {
+      transform: scale(1);
+    }
   }
 }
 
@@ -26,7 +34,7 @@
   top: 0;
   right: 0;
   z-index: 1;
-  border-radius: 30px;
+  border-radius: 45px;
   overflow: hidden;
   transform-style: preserve-3d;
   transition: all .5s ease-out;
@@ -84,7 +92,7 @@
   align-items: center;
   justify-content: center;
   border-radius: 1rem;
-  color: #d6d6d6;
+  color: #9c9c9c;
   cursor: pointer;
   transition: all .5s ease-out;
   position: absolute;
@@ -210,12 +218,6 @@
   pointer-events: none;
   width: 400px;
   height: auto;
-  transition: all .5s ease-out;
-}
-
-.lanyard-wrapper:hover {
-
-  & .me {
-    transform: scale(1.1);
-  }
+  transition: all .8s ease-out;
+  transform: scale(1.1);
 }

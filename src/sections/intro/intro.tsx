@@ -24,7 +24,7 @@ export default function Intro() {
       {
         duration: 2,
         y: 0,
-        opacity: .8,
+        opacity: 1,
         stagger: 0.2,
         ease: "elastic.out(1, 0.5)",
         onComplete: () => setIntroAnimationCompleted(true)
@@ -36,7 +36,7 @@ export default function Intro() {
       {
         y: 0,
         filter: 'none',
-        opacity: .8
+        opacity: 1
       },
       {
         scrollTrigger: {
@@ -81,15 +81,27 @@ export default function Intro() {
         trigger: '.intro',
         start: 'top top',
         end: '+=1000',
-        scrub: 2,
+        scrub: 3,
       },
       right: '100vw',
+    })
+
+    gsap.to('.hills', {
+      scrollTrigger: {
+        trigger: '.intro',
+        start: 'top+=200 top',
+        end: '+=1000',
+        scrub: 1,
+      },
+      sacle: 2,
     })
   }, { scope: container });
 
   return (
-    <div className="intro" ref={container}>
-
+    <div
+      ref={container}
+      className="intro"
+    >
       <Image
         src="/assets/images/cloud.png"
         alt="Cloud"

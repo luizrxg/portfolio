@@ -6,7 +6,7 @@ import {ReactNode} from "react";
 import {cn} from "@/utils/string";
 
 const defaultFont = localFont({
-  src: "../../public/assets/fonts/satoshi/Satoshi-Variable.ttf",
+  src: "../../public/assets/fonts/chillax/Chillax-Variable.ttf",
   variable: "--font-default",
 });
 
@@ -16,8 +16,13 @@ const monospacedFont = MonoFont({
 });
 
 const displayFont = localFont({
-  src: "../../public/assets/fonts/clash_display/ClashDisplay-Variable.ttf",
+  src: "../../public/assets/fonts/cabinet_grotesk/CabinetGrotesk-Variable.ttf",
   variable: "--font-display",
+});
+
+const glyphFont = localFont({
+  src: "../../public/assets/fonts/array/Array-Semibold.ttf",
+  variable: "--font-glyph",
 });
 
 export const metadata: Metadata = {
@@ -34,7 +39,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={cn(defaultFont.className, displayFont.variable, monospacedFont.variable)}
+      className={cn(defaultFont.className, displayFont.variable, monospacedFont.variable, glyphFont.variable)}
     >
       <body>
         {children}

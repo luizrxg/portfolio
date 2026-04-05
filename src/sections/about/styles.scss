@@ -1,12 +1,11 @@
 .about {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
+  align-items: end;
+  justify-content: start;
   position: relative;
   min-height: 1300px;
   background-color: #0a0a0a;
-
 }
 
 .waves {
@@ -15,4 +14,24 @@
   top: -30px;
   left: 0;
   fill: #0a0a0a;
+}
+
+.stickers-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 1200px;
+  height: 800px;
+  margin: 100px;
+  background-image: url("/assets/images/pinboard.png");
+  background-position: center;
+  background-size: cover;
+}
+
+.stickers-zone {
+  display: flex;
+  position: relative;
+  width: calc(100% - 95px);
+  height: calc(100% - 70px);
+  border: red 1px solid;
 }
