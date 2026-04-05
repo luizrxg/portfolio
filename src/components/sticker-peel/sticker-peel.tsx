@@ -116,6 +116,7 @@ const StickerPeel: React.FC<StickerPeelProps> = ({
     if (!target) return;
 
     const boundsEl = target.parentNode as HTMLElement;
+    const stickerMainEl = target.querySelector('.sticker-main') as HTMLDivElement | null;
 
     gsap.set(target, { transformOrigin: 'center center' });
 
@@ -134,11 +135,13 @@ const StickerPeel: React.FC<StickerPeelProps> = ({
       inertia: true,
       onPress(this: Draggable) {
         isPointerDownRef.current = true;
+        target.classList.add('is-picked');
         animateScale(1.1);
         updateLightPosition(this.pointerX, this.pointerY);
       },
       onRelease() {
         isPointerDownRef.current = false;
+        target.classList.remove('is-picked');
         animateScale(1);
       },
       onDrag(this: Draggable) {
@@ -148,6 +151,7 @@ const StickerPeel: React.FC<StickerPeelProps> = ({
       },
       onDragEnd() {
         isPointerDownRef.current = false;
+        target.classList.remove('is-picked');
         const rotationEase = 'elastic.out';
         const duration = 0.8;
         gsap.to(target, { rotation: 0, duration, ease: rotationEase });
@@ -192,6 +196,10 @@ const StickerPeel: React.FC<StickerPeelProps> = ({
       if (draggableInstanceRef.current) {
         draggableInstanceRef.current.kill();
       }
+      if (stickerMainEl) {
+        gsap.killTweensOf(stickerMainEl);
+      }
+      target.classList.remove('is-picked');
       isPointerDownRef.current = false;
     };
   }, []);
@@ -328,6 +336,15 @@ const StickerPeel: React.FC<StickerPeelProps> = ({
 
       <div className="sticker-container" ref={containerRef}>
         <div className="sticker-main">
+          <div className="sticker-shadow" aria-hidden="true">
+            <img
+              src={imageSrc}
+              alt=""
+              className="sticker-shadow-image"
+              draggable="false"
+            />
+          </div>
+
           <div className="sticker-lighting">
             <img
               src={imageSrc}

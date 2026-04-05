@@ -86,6 +86,18 @@ export default function Intro() {
       right: '100vw',
     })
 
+    gsap.fromTo('.hills', {
+      scale: 1,
+    }, {
+      scrollTrigger: {
+        trigger: '.intro',
+        start: 'top top',
+        end: '+=1000',
+        scrub: 3,
+      },
+      scale: 1.5,
+    })
+
     gsap.to('.hills', {
       scrollTrigger: {
         trigger: '.intro',

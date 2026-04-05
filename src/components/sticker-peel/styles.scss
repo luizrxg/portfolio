@@ -30,6 +30,7 @@
 }
 
 .sticker-main {
+  position: relative;
   clip-path: polygon(
       var(--sticker-start) var(--sticker-start),
       var(--sticker-end) var(--sticker-start),
@@ -37,11 +38,32 @@
       var(--sticker-start) var(--sticker-end)
   );
   transition: clip-path 0.6s ease-out;
-  filter: var(--sticker-filter-shadow);
 }
 
 .sticker-main > * {
   transform: rotate(calc(-1 * var(--peel-direction)));
+}
+
+.sticker-shadow {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity 0.1s ease-out;
+  pointer-events: none;
+}
+
+.sticker-shadow-image {
+  transform: rotate(var(--sticker-rotate));
+  filter: var(--sticker-filter-shadow);
+}
+
+.sticker-lighting {
+  position: relative;
+  z-index: 1;
+}
+
+.draggable.is-picked .sticker-shadow {
+  opacity: 1;
 }
 
 .sticker-lighting {
@@ -143,6 +165,7 @@
 }
 
 .sticker-image,
+.sticker-shadow-image,
 .flap-image {
   width: var(--sticker-width, 200px);
 }
