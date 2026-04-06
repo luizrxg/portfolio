@@ -8,7 +8,7 @@
   background-color: #0a0a0a;
   padding: 0 200px;
   gap: 4rem;
-  z-index: 1;
+  z-index: 2;
   overflow: visible;
 }
 
@@ -23,15 +23,17 @@
 .waves-top, .waves-bottom {
   position: absolute;
   height: 45px;
+  fill: #0a0a0a;
+}
+
+.waves-top {
   top: -40px;
   left: 0;
-  fill: #0a0a0a;
-  transform-origin: bottom;
 }
 
 .waves-bottom {
-  top: auto;
   bottom: -90px;
+  left: 0;
   transform-origin: top;
   transform: rotate(180deg);
 }
