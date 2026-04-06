@@ -9,6 +9,13 @@
   padding: 100px 0;
   background-color: #ffb600;
   z-index: 0;
+
+  & > div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: start;
+  }
 }
 
 .stacks-title-container {
@@ -18,9 +25,12 @@
   justify-content: center;
   width: 1300px;
   transition: all .5s ease-out;
+  margin: 10rem auto;
 
-  & > h1 {
-    width: fit-content;
+  & > div > h1 > span {
+    &:nth-child(3) {
+      width: 70px !important;
+    }
   }
 
   &:hover {

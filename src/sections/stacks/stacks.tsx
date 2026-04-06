@@ -7,6 +7,7 @@ import {useMemo, useRef} from "react";
 import {ScrollTrigger} from "gsap/ScrollTrigger";
 import './styles.scss';
 import TextPressure from "@/components/text-pressure/text-pressure";
+import ClickSpark from "@/components/click-spark/click-spark";
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -15,7 +16,23 @@ export default function Stacks() {
   const container = useRef(null);
 
   useGSAP(() => {
+    gsap.set('[id^="my-stacks-letter-"]', { y: 300, filter: 'blur(20px)', opacity: 0 })
 
+    gsap.to(
+      '[id^="my-stacks-letter-"]',
+      {
+        scrollTrigger: {
+          trigger: '#stacks',
+          start: 'top+=2000 top',
+        },
+        y: 0,
+        filter: 'none',
+        opacity: 1,
+        stagger: 0.2,
+        immediateRender: false,
+        ease: 'elastic.out(1, 0.5)',
+      }
+    )
   }, { scope: container })
 
   const stickerProps = {
@@ -62,40 +79,42 @@ export default function Stacks() {
       ref={container}
       id="stacks"
     >
-      <div className="stacks-title-container">
-        <TextPressure
-          text="My"
-          flex={false}
-          fontFamily="var(--font-serif)"
-          textColor="#ffffff"
-          minFontSize={248}
-          maxFontSize={248}
-        />
-        <TextPressure
-          text="stacks."
-          flex={false}
-          fontFamily="var(--font-serif)"
-          textColor="#ffffff"
-          minFontSize={248}
-          maxFontSize={248}
-        />
-      </div>
-      <div
-        className="stickers-container"
+      <ClickSpark
+        sparkColor='#fff'
+        sparkSize={20}
+        sparkRadius={60}
+        sparkCount={8}
+        duration={400}
+        extraScale={.5}
       >
-        <div className="stickers-zone">
-          {stickerItems.map((sticker) => (
-            <StickerPeel
-              key={sticker.imageSrc}
-              imageSrc={sticker.imageSrc}
-              initialPosition={sticker.initialPosition}
-              peelDirection={sticker.peelDirection}
-              rotate={sticker.rotate}
-              {...stickerProps}
-            />
-          ))}
+        <div className="stacks-title-container">
+          <TextPressure
+            text="My⠀Stacks."
+            flex={false}
+            fontFamily="var(--font-serif)"
+            textColor="#ffffff"
+            minFontSize={248}
+            maxFontSize={248}
+            lettersId="my-stacks-letter"
+          />
         </div>
-      </div>
+        <div
+          className="stickers-container"
+        >
+          <div className="stickers-zone">
+            {stickerItems.map((sticker) => (
+              <StickerPeel
+                key={sticker.imageSrc}
+                imageSrc={sticker.imageSrc}
+                initialPosition={sticker.initialPosition}
+                peelDirection={sticker.peelDirection}
+                rotate={sticker.rotate}
+                {...stickerProps}
+              />
+            ))}
+          </div>
+        </div>
+      </ClickSpark>
     </div>
   )
 }

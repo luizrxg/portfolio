@@ -7,7 +7,6 @@ import {useRef, useState} from "react";
 import Letters from "@/components/letters/letters";
 import './styles.scss';
 import Image from "next/image";
-import Ribbons from "@/components/ribbons/ribbons";
 
 gsap.registerPlugin(ScrollTrigger);
 

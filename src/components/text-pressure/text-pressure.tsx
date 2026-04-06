@@ -14,6 +14,7 @@ interface TextPressureProps {
   textColor?: string;
   strokeColor?: string;
   className?: string;
+  lettersId?: string;
   minFontSize?: number;
   maxFontSize?: number;
 }
@@ -53,6 +54,7 @@ const TextPressure: React.FC<TextPressureProps> = ({
   textColor = '#FFFFFF',
   strokeColor = '#FF0000',
   className = '',
+  lettersId = '',
   minFontSize = 24,
   maxFontSize = Number.POSITIVE_INFINITY
 }) => {
@@ -245,6 +247,7 @@ const TextPressure: React.FC<TextPressureProps> = ({
       >
         {chars.map((char, i) => (
           <span
+            id={`${lettersId}-${i}`}
             key={i}
             ref={el => {
               spansRef.current[i] = el;
