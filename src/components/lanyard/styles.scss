@@ -1,9 +1,7 @@
 .tilted-card-wrapper {
-  position: absolute;
   width: 400px;
   height: 600px;
-  top: 210px;
-  left: 140px;
+  transition: all .5s ease-out;
 }
 
 .lanyard-wrapper {
@@ -40,14 +38,9 @@
   transform-style: preserve-3d;
   transition: all .5s ease-out;
   backface-visibility: hidden;
-
-  &.flipped {
-    transform: rotateY(180deg);
-  }
 }
 
 .lanyard-container {
-
   &.flipped {
     transform: rotateY(180deg);
   }

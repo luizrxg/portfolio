@@ -1,12 +1,15 @@
 #about {
   display: flex;
-  flex-direction: column;
-  align-items: end;
-  justify-content: start;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
   position: relative;
-  min-height: 4000px;
+  min-height: 800px;
   background-color: #0a0a0a;
-  perspective: 4000px;
+  padding: 0 100px;
+  gap: 10rem;
+  z-index: 1;
+  overflow: visible;
 }
 
 .waves {
@@ -18,58 +21,94 @@
   transform-origin: bottom;
 }
 
-.stickers-container {
+.about-text-container {
   display: flex;
+  flex-direction: column;
+  align-items: start;
   justify-content: center;
-  align-items: center;
-  width: 1100px;
-  height: 800px;
-  margin: 100px;
-  position: sticky;
-  perspective: 1200px;
+  gap: 5rem;
+  width: 100%;
+  height: 600px;
+  color: #ffffff;
+  text-align: justify;
+}
+
+
+.about-title {
+  font-size: 8rem;
+  font-family: var(--font-glyph);
+  line-height: 0.70em;
+  perspective: 800px;
+  opacity: .1;
+
+  &:hover {
+    animation-play-state: paused;
+  }
+}
+
+.about-text {
+  font-size: 1.8rem;
+  font-weight: 500;
+  color: #d6d6d6;
+  font-family: var(--font-mono), monospace;
+
+  & > span:last-child {
+    animation: cursor-blink 1s steps(1, end) infinite;
+  }
+}
+
+.flip-me-tip {
+  display: flex;
+  align-items: end;
+  justify-content: center;
+  position: absolute;
+  bottom: 0;
+  right: 550px;
+
+  & > p {
+    font-size: 3rem;
+    font-weight: 500;
+    color: #ffffff;
+    font-family: var(--font-handwritten);
+    transform: rotateZ(-12deg);
+  }
 
   & > img {
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    z-index: 0;
-
+    width: 100px;
+    height: 100px;
+    margin-left: 1rem;
+    margin-bottom: 2rem
   }
 }
 
-.macbook{
-  &.open {
-    filter: drop-shadow(0px -60px 100px #C2E3FF55)
+
+@keyframes flicker-light {
+
+  0%, 18%, 20%, 50.1%, 60%, 65.1%, 80%, 90.1%, 92.1% {
+    opacity: .1;
+  }
+
+  18.1%, 20.1%, 30%, 50%, 60.1%, 65%, 80.1%, 90%, 92% {
+    opacity: 1;
+    text-shadow: 0 0 4px #ffffff;
+    -webkit-box-reflect: below 1px linear-gradient(transparent, #0a0a0a10);
+  }
+
+  100%  {
+    opacity: 1;
+    text-shadow: 0 0 10px #ffffff;
+    -webkit-box-reflect: below 1px linear-gradient(transparent, #0a0a0a10);
   }
 }
 
-.stickers-zone {
-  display: flex;
-  position: relative;
-  width: calc(100% - 95px);
-  height: calc(100% - 20px);
-
-  & .draggable:hover {
-    transform: scale(1.1);
+@keyframes cursor-blink {
+  0%,
+  49% {
+    opacity: 1;
   }
-}
 
-.macbook, .stickers-zone {
-  transition: all .5s ease-out;
-  transform-style: preserve-3d;
-  transform-origin: bottom;
-}
-
-.macbook-base {
-  border-radius: 10px;
-  position: absolute;
-  bottom: 5px;
-  left: 15px;
-  width: calc(100% - 30px);
-  height: 60px;
-  z-index: 0;
-  background-image: url('/assets/images/macbook.png');
-  background-size: cover;
-  background-position: bottom;
-  filter: brightness(0.5);
+  50%,
+  100% {
+    opacity: 0;
+  }
 }

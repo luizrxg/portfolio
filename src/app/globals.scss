@@ -25,6 +25,7 @@ body {
   box-sizing: border-box;
   padding: 0;
   margin: 0;
+  text-rendering: optimizeLegibility;
 }
 
 a {
@@ -44,4 +45,9 @@ h1 {
 *::selection {
   color: #0a0a0a;
   background-color: #ffffff;
+}
+
+*[contenteditable="true"] {
+  outline: none;
+
 }

@@ -1,5 +1,6 @@
 import Intro from "@/sections/intro/intro";
 import About from "@/sections/about/about";
+import Stacks from "../sections/stacks/stacks";
 
 
 export default function Home() {
@@ -7,6 +8,7 @@ export default function Home() {
     <>
       <Intro />
       <About />
+      <Stacks />
     </>
   );
 }
