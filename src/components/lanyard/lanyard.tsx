@@ -16,7 +16,10 @@ export default function Lanyard() {
 
   return (
     <div className="tilted-card-wrapper">
-      <TiltedCard>
+      <TiltedCard
+        scaleOnHover={1.1}
+        rotateAmplitude={30}
+      >
         <div
           onClick={flipCard}
           className="lanyard-wrapper"

@@ -7,6 +7,7 @@ import {useGSAP} from "@gsap/react";
 import {useRef} from "react";
 import gsap from "gsap";
 import Image from "next/image";
+import SoftAurora from "@/components/soft-aurora/soft-aurora";
 
 export default function About() {
 
@@ -15,7 +16,24 @@ export default function About() {
   useGSAP(() => {
 
     gsap.fromTo(
-      '.waves',
+      '.waves-top',
+      {
+        x: -4000,
+      },
+      {
+        scrollTrigger: {
+          scroller: document.body,
+          trigger: '#about',
+          start: 'top top',
+          end: '+=10000',
+          scrub: 1,
+        },
+        x: 4000,
+      }
+    )
+
+    gsap.fromTo(
+      '.waves-bottom',
       {
         x: -4000,
       },
@@ -83,17 +101,12 @@ export default function About() {
     )
   }, { scope: container })
 
-
-  const aboutMeText = `
-
-    `
-
   return (
     <div
       ref={container}
       id="about"
     >
-      <WaveSVG className="waves"/>
+      <WaveSVG className="waves-top"/>
       <div className="about-text-container">
         <h1 className="about-title">
           About me
@@ -123,6 +136,7 @@ export default function About() {
           height={2048}
         />
       </div>
+      <WaveSVG className="waves-bottom"/>
     </div>
   )
 }
