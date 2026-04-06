@@ -11,16 +11,16 @@ export default function Home() {
       <About />
       <Stacks />
       <Experience />
-      <GradualBlur
-        target="page"
-        position="bottom"
-        height="4rem"
-        strength={2}
-        divCount={5}
-        curve="bezier"
-        exponential
-        opacity={1}
-      />
+      {/*<GradualBlur*/}
+      {/*  target="page"*/}
+      {/*  position="bottom"*/}
+      {/*  height="4rem"*/}
+      {/*  strength={2}*/}
+      {/*  divCount={5}*/}
+      {/*  curve="bezier"*/}
+      {/*  exponential*/}
+      {/*  opacity={1}*/}
+      {/*/>*/}
     </>
   );
 }

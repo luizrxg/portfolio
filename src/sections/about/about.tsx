@@ -71,7 +71,7 @@ export default function About() {
     )
 
     gsap.fromTo(
-      '.flip-me-tip',
+      '.flip-tip',
       {
         opacity: 0,
       },
@@ -149,9 +149,9 @@ export default function About() {
         </div>
       </div>
       <Lanyard />
-      <div className="flip-me-tip">
+      <div className="flip-tip">
         <p>
-          Flip me
+          Flip it
         </p>
         <Image
           src="/assets/images/looping-arrow.png"

@@ -8,6 +8,8 @@ import {ScrollTrigger} from "gsap/ScrollTrigger";
 import './styles.scss';
 import TextPressure from "@/components/text-pressure/text-pressure";
 import ClickSpark from "@/components/click-spark/click-spark";
+import Image from "next/image";
+import WaveSVG from "@/assets/svgs/waves.svg";
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -16,7 +18,8 @@ export default function Stacks() {
   const container = useRef(null);
 
   useGSAP(() => {
-    gsap.set('[id^="my-stacks-letter-"]', { y: 300, filter: 'blur(20px)', opacity: 0 })
+    gsap.set('[id^="my-stacks-letter-"]', { y: -700 })
+    gsap.set('.stickers-container', { y: 500 })
 
     gsap.to(
       '[id^="my-stacks-letter-"]',
@@ -33,15 +36,20 @@ export default function Stacks() {
         ease: 'elastic.out(1, 0.5)',
       }
     )
-  }, { scope: container })
 
-  const stickerProps = {
-    width: 50,
-    peelBackHoverPct: 20,
-    peelBackActivePct: 30,
-    shadowIntensity: .5,
-    lightingIntensity: .1,
-  }
+    gsap.to(
+      '.stickers-container',
+      {
+        scrollTrigger: {
+          trigger: '#stacks',
+          start: 'top+=2000 top',
+          end: '+=400',
+          scrub: 1,
+        },
+        y: -130,
+      }
+    )
+  }, { scope: container })
 
   const stickerItems = useMemo(() => {
 
@@ -93,14 +101,20 @@ export default function Stacks() {
             flex={false}
             fontFamily="var(--font-serif)"
             textColor="#ffffff"
-            minFontSize={248}
-            maxFontSize={248}
+            minFontSize={300}
+            maxFontSize={300}
             lettersId="my-stacks-letter"
           />
         </div>
         <div
           className="stickers-container"
         >
+          <Image
+            src="/assets/images/suitcase.png"
+            alt="Briefcase"
+            width={2849}
+            height={2371}
+          />
           <div className="stickers-zone">
             {stickerItems.map((sticker) => (
               <StickerPeel
@@ -109,7 +123,11 @@ export default function Stacks() {
                 initialPosition={sticker.initialPosition}
                 peelDirection={sticker.peelDirection}
                 rotate={sticker.rotate}
-                {...stickerProps}
+                width={120}
+                peelBackHoverPct={20}
+                peelBackActivePct={30}
+                shadowIntensity={.5}
+                lightingIntensity={.1}
               />
             ))}
           </div>
