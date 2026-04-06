@@ -7,15 +7,8 @@
   position: relative;
   min-height: 2000px;
   padding: 100px 0;
-  background-color: #0a0a0a;
+  background: #0a0a0a;
   z-index: 0;
-}
-
-.stickers-pin {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
 }
 
 .stickers-container {
@@ -38,12 +31,6 @@
   }
 }
 
-.macbook{
-  &.open {
-    filter: drop-shadow(0px -60px 100px #C2E3FF55)
-  }
-}
-
 .stickers-zone {
   display: flex;
   position: relative;
@@ -53,28 +40,4 @@
   & .draggable:hover {
     transform: scale(1.1);
   }
-}
-
-.macbook {
-  transition: filter .5s ease-out;
-}
-
-.macbook, .stickers-zone {
-  transform-style: preserve-3d;
-  transform-origin: bottom;
-  backface-visibility: hidden;
-}
-
-.macbook-base {
-  border-radius: 10px;
-  position: absolute;
-  bottom: 5px;
-  left: 15px;
-  width: calc(100% - 30px);
-  height: 60px;
-  z-index: 0;
-  background-image: url('/assets/images/macbook.png');
-  background-size: cover;
-  background-position: bottom;
-  filter: brightness(0.5);
 }

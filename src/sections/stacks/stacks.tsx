@@ -4,9 +4,10 @@ import Image from "next/image";
 import StickerPeel from "@/components/sticker-peel/sticker-peel";
 import {useGSAP} from "@gsap/react";
 import gsap from "gsap";
-import {useMemo, useRef, useState} from "react";
+import {useMemo, useRef} from "react";
 import {ScrollTrigger} from "gsap/ScrollTrigger";
 import './styles.scss';
+import {WheelEvent} from "react";
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -15,58 +16,8 @@ export default function Stacks() {
   const container = useRef(null);
 
   useGSAP(() => {
-    gsap.set('.macbook', { rotateX: 90, y: -60, force3D: true });
-    gsap.set('.stickers-zone', { rotateX: 90, y: -52, force3D: true });
-    gsap.set('.stickers-container', { rotateY: 0, force3D: true });
 
-    const stickersTimeline = gsap.timeline({
-      scrollTrigger: {
-        trigger: '.stickers-pin',
-        start: 'top top',
-        end: '+=900',
-        scrub: 1,
-        pin: true,
-        pinSpacing: true,
-        anticipatePin: 0,
-        invalidateOnRefresh: true,
-      },
-    });
-
-    stickersTimeline
-      .to(
-        '.macbook',
-        {
-          rotateX: 0,
-          y: 0,
-          ease: 'none',
-          force3D: true,
-          duration: 0.45,
-        },
-        0,
-      )
-      .to(
-        '.stickers-zone',
-        {
-          rotateX: 0,
-          y: 0,
-          ease: 'none',
-          force3D: true,
-          duration: 0.45,
-        },
-        0,
-      )
-      .to(
-        '.stickers-container',
-        {
-          rotateY: 180,
-          ease: 'none',
-          force3D: true,
-          duration: 1,
-        },
-        '>',
-      );
   }, { scope: container })
-
 
   const stickerProps = {
     width: 150,
@@ -112,35 +63,20 @@ export default function Stacks() {
       ref={container}
       id="stacks"
     >
-      <div className="stickers-pin">
-        <div
-          className="stickers-container"
-        >
-          <div
-            className="macbook-base"
-          />
-          <Image
-            src="/assets/images/macbook.png"
-            alt="Macbook"
-            width={3629}
-            height={2453}
-            loading="eager"
-            priority
-            onLoad={() => ScrollTrigger.refresh()}
-            className="macbook"
-          />
-          <div className="stickers-zone">
-            {stickerItems.map((sticker) => (
-              <StickerPeel
-                key={sticker.imageSrc}
-                imageSrc={sticker.imageSrc}
-                initialPosition={sticker.initialPosition}
-                peelDirection={sticker.peelDirection}
-                rotate={sticker.rotate}
-                {...stickerProps}
-              />
-            ))}
-          </div>
+      <div
+        className="stickers-container"
+      >
+        <div className="stickers-zone">
+          {stickerItems.map((sticker) => (
+            <StickerPeel
+              key={sticker.imageSrc}
+              imageSrc={sticker.imageSrc}
+              initialPosition={sticker.initialPosition}
+              peelDirection={sticker.peelDirection}
+              rotate={sticker.rotate}
+              {...stickerProps}
+            />
+          ))}
         </div>
       </div>
     </div>
