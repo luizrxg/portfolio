@@ -6,8 +6,8 @@
   position: relative;
   min-height: 1000px;
   background-color: #0a0a0a;
-  padding: 0 100px;
-  gap: 10rem;
+  padding: 0 200px;
+  gap: 4rem;
   z-index: 1;
   overflow: visible;
 }
@@ -62,11 +62,21 @@
   }
 }
 
+.about-text-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  justify-content: center;
+  gap: 1rem
+}
+
 .about-text {
-  font-size: 1.8rem;
+  font-size: 1.6rem !important;
   font-weight: 500;
+  line-height: 1.5;
   color: #d6d6d6;
   font-family: var(--font-mono), monospace;
+  margin: 0 !important;
 
   & > span:last-child {
     animation: cursor-blink 1s steps(1, end) infinite;
@@ -78,8 +88,8 @@
   align-items: end;
   justify-content: center;
   position: absolute;
-  bottom: 100px;
-  right: 550px;
+  bottom: 50px;
+  right: 630px;
 
   & > p {
     font-size: 3rem;

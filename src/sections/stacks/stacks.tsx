@@ -1,13 +1,12 @@
 'use client'
 
-import Image from "next/image";
 import StickerPeel from "@/components/sticker-peel/sticker-peel";
 import {useGSAP} from "@gsap/react";
 import gsap from "gsap";
 import {useMemo, useRef} from "react";
 import {ScrollTrigger} from "gsap/ScrollTrigger";
 import './styles.scss';
-import {WheelEvent} from "react";
+import TextPressure from "@/components/text-pressure/text-pressure";
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -20,7 +19,7 @@ export default function Stacks() {
   }, { scope: container })
 
   const stickerProps = {
-    width: 150,
+    width: 50,
     peelBackHoverPct: 20,
     peelBackActivePct: 30,
     shadowIntensity: .5,
@@ -63,6 +62,24 @@ export default function Stacks() {
       ref={container}
       id="stacks"
     >
+      <div className="stacks-title-container">
+        <TextPressure
+          text="My"
+          flex={false}
+          fontFamily="var(--font-serif)"
+          textColor="#ffffff"
+          minFontSize={248}
+          maxFontSize={248}
+        />
+        <TextPressure
+          text="stacks."
+          flex={false}
+          fontFamily="var(--font-serif)"
+          textColor="#ffffff"
+          minFontSize={248}
+          maxFontSize={248}
+        />
+      </div>
       <div
         className="stickers-container"
       >

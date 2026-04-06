@@ -8,6 +8,7 @@ import {useRef} from "react";
 import gsap from "gsap";
 import Image from "next/image";
 import SoftAurora from "@/components/soft-aurora/soft-aurora";
+import ScrambledText from "@/components/scrambled-text/scrambled-text";
 
 export default function About() {
 
@@ -53,6 +54,7 @@ export default function About() {
       '.tilted-card-wrapper',
       {
         y: 1000,
+        opacity: 0
       },
       {
         scrollTrigger: {
@@ -62,6 +64,7 @@ export default function About() {
           end: '+=500',
         },
         y: 0,
+        opacity: 1,
         ease: 'back.out',
         duration: 2,
       }
@@ -111,17 +114,39 @@ export default function About() {
         <h1 className="about-title">
           About me
         </h1>
-        <p className="about-text">
-          <span>
-            I'm a Front-end Developer with 4 years of experience, skilled in technologies such as React,
-            Next.js, Angular, Tailwind, PHP, Wordpress, C#, ASP. NET, Node.js, JavaScript/TypeScript,
-            Kotlin, Jetpack Compose, Android, SQL, Java and Spring Boot and also specialized in UX/UI,
-            APIs REST, web applications e agile methodologies. I have a strong passion for creating intuitive,
-            user-friendly and unique interfaces and I am always looking for new challenges to expand my knowledge and skills.
-            I am also very proactive and collaborative, always willing to learn and share my knowledge with the team
-          </span>
-          <span>_</span>
-        </p>
+        <div className="about-text-wrapper">
+          <ScrambledText
+            className="about-text"
+            radius={100}
+            duration={1.2}
+            speed={0.5}
+            scrambleChars=".:"
+          >
+            <span> I'm a Front-end Developer with 4 years of experience, skilled in technologies such as React, </span>
+            <span> Next.js, Angular, Tailwind, PHP, Wordpress, C#, ASP. NET, Node.js, JavaScript/TypeScript, Kotlin, </span>
+            <span> Jetpack Compose, Android, SQL, Java and Spring Boot and also specialized in UX/UI, </span>
+            <span> APIs REST, web applications e agile methodologies. </span>
+          </ScrambledText>
+          <ScrambledText
+            className="about-text"
+            radius={100}
+            duration={1.2}
+            speed={0.5}
+            scrambleChars=".:"
+          >
+            <span>I have a strong passion for creating intuitive,</span>
+            <span> user-friendly and unique interfaces and I am always looking for new challenges to expand my knowledge and skills.</span>
+          </ScrambledText>
+          <ScrambledText
+            className="about-text"
+            radius={100}
+            duration={1.2}
+            speed={0.5}
+            scrambleChars=".:"
+          >
+            I am also very proactive and collaborative, always willing to learn and share my knowledge with the team.
+          </ScrambledText>
+        </div>
       </div>
       <Lanyard />
       <div className="flip-me-tip">
