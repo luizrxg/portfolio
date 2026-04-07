@@ -51,7 +51,7 @@ export default function Stacks() {
     )
 
     gsap.fromTo(
-      '.spikes',
+      '.spikes-stacks',
       {
         x: -7000,
         rotateX: 180,
@@ -169,7 +169,7 @@ export default function Stacks() {
             height={2048}
           />
         </div>
-        <SpikesSVG className="spikes"/>
+        <SpikesSVG className="spikes-stacks"/>
 
       </ClickSpark>
     </div>
