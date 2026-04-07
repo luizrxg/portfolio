@@ -115,13 +115,13 @@ export default function Experience() {
       </div>
       <div className="galaxy-wrapper">
         <Galaxy
-          mouseRepulsion={true}
+          mouseRepulsion={false}
           mouseInteraction
-          density={1}
+          density={10}
           glowIntensity={0.15}
           twinkleIntensity={0.1}
           rotationSpeed={0}
-          repulsionStrength={.5}
+          repulsionStrength={.1}
           autoCenterRepulsion={0}
           starSpeed={1}
           speed={.1}
