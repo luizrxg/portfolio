@@ -2,7 +2,7 @@
 
 import './styles.scss';
 import Lanyard from "@/components/lanyard/lanyard";
-import WavesSVG from "@/assets/svgs/waves.svg";
+import WavesSVG from "@/assets/svgs/dividers/waves.svg";
 import {useGSAP} from "@gsap/react";
 import {useRef} from "react";
 import gsap from "gsap";
@@ -121,10 +121,12 @@ export default function About() {
             speed={0.5}
             scrambleChars=".:"
           >
-            <span> I'm a Front-end Developer with 4 years of experience, skilled in technologies such as React, </span>
-            <span> Next.js, Angular, Tailwind, PHP, Wordpress, C#, ASP. NET, Node.js, JavaScript/TypeScript, Kotlin, </span>
-            <span> Jetpack Compose, Android, SQL, Java and Spring Boot and also specialized in UX/UI, </span>
-            <span> APIs REST, web applications e agile methodologies. </span>
+            <span>I'm a Front-end Developer with 4 years of experience </span>
+            <span>skilled in technologies such as React, Next.js, Angular, </span>
+            <span>Tailwind, PHP, Wordpress, C#, ASP. NET, Node.js, JavaScript/TypeScript, Kotlin, </span>
+            <span>Jetpack Compose, Android, SQL, Java and Spring Boot and also specialized in UX/UI, </span>
+            <span>APIs REST, web applications e agile methodologies, </span>
+            <span>currently studying Information Systems at the Federal University of Uberlândia. </span>
           </ScrambledText>
           <ScrambledText
             className="about-text"
@@ -133,8 +135,8 @@ export default function About() {
             speed={0.5}
             scrambleChars=".:"
           >
-            <span>I have a strong passion for creating intuitive,</span>
-            <span> user-friendly and unique interfaces and I am always looking for new challenges to expand my knowledge and skills.</span>
+            <span>I have a strong passion for creating intuitive, </span>
+            <span>user-friendly and unique interfaces and I am always looking for new challenges to expand my knowledge and skills.</span>
           </ScrambledText>
           <ScrambledText
             className="about-text"
@@ -143,7 +145,8 @@ export default function About() {
             speed={0.5}
             scrambleChars=".:"
           >
-            I am also very proactive and collaborative, always willing to learn and share my knowledge with the team.
+            <span>I am also very proactive and collaborative, always</span>
+            <span>willing to learn and share my knowledge with the team. </span>
           </ScrambledText>
         </div>
       </div>

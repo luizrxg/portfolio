@@ -8,7 +8,7 @@ import {ScrollTrigger} from "gsap/ScrollTrigger";
 import './styles.scss';
 import TextPressure from "@/components/text-pressure/text-pressure";
 import ClickSpark from "@/components/click-spark/click-spark";
-import SpikesSVG from "@/assets/svgs/spikes.svg";
+import SpikesSVG from "@/assets/svgs/dividers/spikes.svg";
 import Image from "next/image";
 
 gsap.registerPlugin(ScrollTrigger)
@@ -76,7 +76,7 @@ export default function Stacks() {
     return [
       { imageSrc: '/assets/images/react.png',      peelDirection: 41,  rotate: -11, initialPosition: { x: 704, y: 16  } },
       { imageSrc: '/assets/images/node.png',       peelDirection: 227, rotate: -3,  initialPosition: { x: 113, y: 342 } },
-      { imageSrc: '/assets/images/angular.png',    peelDirection: 153, rotate: 12,  initialPosition: { x: 289, y: 72  } },
+      { imageSrc: '/assets/images/angular.png',    peelDirection: 153, rotate: 12,  initialPosition: { x: 289, y: 55  } },
       { imageSrc: '/assets/images/gsap.png',       peelDirection: 318, rotate: -8,  initialPosition: { x: 357, y: 134 } },
       { imageSrc: '/assets/images/typescript.png', peelDirection: 19,  rotate: 9,   initialPosition: { x: 651, y: 249 } },
       { imageSrc: '/assets/images/bun.png',        peelDirection: 204, rotate: 6,   initialPosition: { x: 694, y: 146 } },
@@ -98,10 +98,12 @@ export default function Stacks() {
       { imageSrc: '/assets/images/zustand.png',    peelDirection: 97,  rotate: -6,  initialPosition: { x: 393, y: 7   } },
       { imageSrc: '/assets/images/three.png',      peelDirection: 214, rotate: -15, initialPosition: { x: 470, y: 111 } },
       { imageSrc: '/assets/images/storybook.png',  peelDirection: 281, rotate: -1,  initialPosition: { x: 700, y: 300 } },
-      { imageSrc: '/assets/images/graphql.png',    peelDirection: 118, rotate: 13,  initialPosition: { x: 272, y: 218 } },
+      { imageSrc: '/assets/images/graphql.png',    peelDirection: 118, rotate: 13,  initialPosition: { x: 272, y: 238 } },
       { imageSrc: '/assets/images/html.png',       peelDirection: 45,  rotate: 3,   initialPosition: { x: 171, y: 157 } },
-      { imageSrc: '/assets/images/css.png',        peelDirection: 265, rotate: 9,   initialPosition: { x: 352, y: 296 } },
-      { imageSrc: '/assets/images/php.png',        peelDirection: 72, rotate: 0,    initialPosition: { x: 144, y: 63  } },
+      { imageSrc: '/assets/images/css.png',        peelDirection: 265, rotate: 9,   initialPosition: { x: 370, y: 296 } },
+      { imageSrc: '/assets/images/php.png',        peelDirection: 72,  rotate: 0,   initialPosition: { x: 144, y: 63  } },
+      { imageSrc: '/assets/images/kotlin.png',     peelDirection: 270, rotate: 9,   initialPosition: { x: 493, y: 7   } },
+      { imageSrc: '/assets/images/android.png',    peelDirection: 45,  rotate: -11, initialPosition: { x: 270, y: 150 } },
     ]
   }, []);
 
