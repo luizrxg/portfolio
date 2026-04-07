@@ -52,7 +52,7 @@ export default function About() {
     gsap.fromTo(
       '.tilted-card-wrapper',
       {
-        y: 1000,
+        x: 1000,
         opacity: 0
       },
       {
@@ -62,7 +62,7 @@ export default function About() {
           start: 'top+=800 top',
           end: '+=500',
         },
-        y: 0,
+        x: 0,
         opacity: 1,
         ease: 'back.out',
         duration: 2,
@@ -78,8 +78,7 @@ export default function About() {
         scrollTrigger: {
           scroller: document.body,
           trigger: '#about',
-          start: 'top+=800 top',
-          end: '+=500',
+          start: 'top+=1000 top',
         },
         opacity: 1,
         ease: 'power1.out',
