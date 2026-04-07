@@ -49,13 +49,29 @@ export default function Experience() {
     gsap.fromTo(
       '.experience-title',
       {
-        filter: 'blur(100px)',
-        opacity: 0,
+        top: 1500
       },
       {
         scrollTrigger: {
           trigger: '#experience',
           start: 'top+=3000 top',
+          end: '+=5000',
+          scrub: 1,
+        },
+        top: -1000
+      }
+    )
+
+    gsap.fromTo(
+      '#job-1',
+      {
+        filter: 'blur(100px)',
+        opacity: 0,
+      },
+      {
+        scrollTrigger: {
+          trigger: '#job-1',
+          start: 'top bottom',
           end: '+=500',
           scrub: 1
         },
@@ -65,34 +81,20 @@ export default function Experience() {
     )
 
     gsap.fromTo(
-      '#job-1',
-      {
-        filter: 'blur(100px)',
-      },
-      {
-        scrollTrigger: {
-          trigger: '#experience',
-          start: 'top+=4000 top',
-          end: '+=500',
-          scrub: 1
-        },
-        filter: 'blur(0px)',
-      }
-    )
-
-    gsap.fromTo(
       '#job-2',
       {
         filter: 'blur(100px)',
+        opacity: 0,
       },
       {
         scrollTrigger: {
-          trigger: '#experience',
-          start: 'top+=5000 top',
+          trigger: '#job-2',
+          start: 'top bottom',
           end: '+=500',
           scrub: 1
         },
         filter: 'blur(0px)',
+        opacity: 1,
       }
     )
 
@@ -100,15 +102,17 @@ export default function Experience() {
       '#job-3',
       {
         filter: 'blur(100px)',
+        opacity: 0,
       },
       {
         scrollTrigger: {
-          trigger: '#experience',
-          start: 'top+=6000 top',
+          trigger: '#job-3',
+          start: 'top bottom',
           end: '+=500',
           scrub: 1
         },
         filter: 'blur(0px)',
+        opacity: 1,
       }
     )
   }, { scope: container })
