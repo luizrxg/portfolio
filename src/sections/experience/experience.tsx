@@ -10,6 +10,7 @@ import FireSVG from '@/assets/svgs/misc/fire.svg'
 import Galaxy from "@/components/galaxy/galaxy";
 import GlassSurface from "@/components/glass-surface/glass-surface";
 import TargetCursor from "@/components/target-cursor/target-cursor";
+import FuzzyText from "@/components/fuzzy-text/fuzzy-text";
 
 export default function Experience() {
 
@@ -46,6 +47,24 @@ export default function Experience() {
     )
 
     gsap.fromTo(
+      '.experience-title',
+      {
+        filter: 'blur(100px)',
+        opacity: 0,
+      },
+      {
+        scrollTrigger: {
+          trigger: '#experience',
+          start: 'top+=3000 top',
+          end: '+=500',
+          scrub: 1
+        },
+        filter: 'blur(0px)',
+        opacity: 1,
+      }
+    )
+
+    gsap.fromTo(
       '#job-1',
       {
         filter: 'blur(100px)',
@@ -53,7 +72,7 @@ export default function Experience() {
       {
         scrollTrigger: {
           trigger: '#experience',
-          start: 'top+=3500 top',
+          start: 'top+=4000 top',
           end: '+=500',
           scrub: 1
         },
@@ -69,7 +88,7 @@ export default function Experience() {
       {
         scrollTrigger: {
           trigger: '#experience',
-          start: 'top+=4500 top',
+          start: 'top+=5000 top',
           end: '+=500',
           scrub: 1
         },
@@ -85,7 +104,7 @@ export default function Experience() {
       {
         scrollTrigger: {
           trigger: '#experience',
-          start: 'top+=5500 top',
+          start: 'top+=6000 top',
           end: '+=500',
           scrub: 1
         },
@@ -106,6 +125,15 @@ export default function Experience() {
         parallaxOn
         hoverDuration={0.2}
       />
+      <FuzzyText
+        baseIntensity={0.2}
+        hoverIntensity={0.5}
+        glitchMode
+        enableHover
+        className="experience-title cursor-target"
+      >
+        JOURNEY
+      </FuzzyText>
       <DottedLineSVG className="dotted-line cursor-target"/>
       <div className="spaceship-wrapper cursor-target">
         <div className="spaceship">
