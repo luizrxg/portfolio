@@ -10,6 +10,10 @@ import Image from "next/image";
 
 gsap.registerPlugin(ScrollTrigger);
 
+ScrollTrigger.defaults({
+  preventOverlaps: true,
+});
+
 export default function Intro() {
   const [introAnimationCompleted, setIntroAnimationCompleted] = useState(false);
   const container = useRef(null);

@@ -4,6 +4,14 @@ import { JetBrains_Mono as MonoFont, Sixtyfour as ArcadeFont } from "next/font/g
 import "./globals.scss";
 import {ReactNode} from "react";
 import {cn} from "@/utils/string";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+gsap.registerPlugin(ScrollTrigger);
+
+ScrollTrigger.defaults({
+  preventOverlaps: true,
+});
 
 const defaultFont = localFont({
   src: "../../public/assets/fonts/ranade/Ranade-Variable.ttf",
@@ -23,6 +31,11 @@ const arcadeFont = ArcadeFont({
 const displayFont = localFont({
   src: "../../public/assets/fonts/cabinet_grotesk/CabinetGrotesk-Variable.ttf",
   variable: "--font-display",
+});
+
+const display2Font = localFont({
+  src: "../../public/assets/fonts/clash_display/ClashDisplay-Variable.ttf",
+  variable: "--font-display-2",
 });
 
 const glyphFont = localFont({
@@ -59,6 +72,7 @@ export default function RootLayout({
         monospacedFont.variable,
         arcadeFont.variable,
         displayFont.variable,
+        display2Font.variable,
         glyphFont.variable,
         paquitoFont.variable,
         handwrittenFont.variable

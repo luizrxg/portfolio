@@ -8,6 +8,13 @@ import {useRef} from "react";
 import gsap from "gsap";
 import Image from "next/image";
 import ScrambledText from "@/components/scrambled-text/scrambled-text";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+gsap.registerPlugin(ScrollTrigger);
+
+ScrollTrigger.defaults({
+  preventOverlaps: true,
+});
 
 export default function About() {
 

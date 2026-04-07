@@ -11,7 +11,11 @@ import ClickSpark from "@/components/click-spark/click-spark";
 import SpikesSVG from "@/assets/svgs/dividers/spikes.svg";
 import Image from "next/image";
 
-gsap.registerPlugin(ScrollTrigger)
+gsap.registerPlugin(ScrollTrigger);
+
+ScrollTrigger.defaults({
+  preventOverlaps: true,
+});
 
 export default function Stacks() {
 

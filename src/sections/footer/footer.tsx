@@ -2,15 +2,24 @@
 
 import SpikesSVG from "@/assets/svgs/dividers/spikes.svg";
 import './styles.scss';
-import {useRef} from "react";
+import {useRef, type MouseEvent} from "react";
 import {useGSAP} from "@gsap/react";
 import gsap from "gsap";
-import {IconAsterisk} from "@tabler/icons-react";
+import {IconAsterisk, IconCopy, IconExternalLinkFilled} from "@tabler/icons-react";
 import copyToClipboard from "@/utils/string";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+gsap.registerPlugin(ScrollTrigger);
+
+ScrollTrigger.defaults({
+  preventOverlaps: true,
+});
 
 export default function Footer() {
 
   const container = useRef(null);
+  const toast = useRef<HTMLSpanElement>(null);
+  const toastTimeline = useRef<gsap.core.Timeline | null>(null);
 
   useGSAP(() => {
     gsap.fromTo(
@@ -29,16 +38,42 @@ export default function Footer() {
         x: 1000,
       }
     )
-
   }, { scope: container })
 
-  const copyInfo = (e: any) => {
+  const copyInfo = (e: MouseEvent<HTMLHeadingElement>) => {
     e.preventDefault();
-    copyToClipboard(e.target.innerHTML);
-    e.target.classList.add('copied');
-    setTimeout(() => {
-      e.target.classList.remove('copied');
-    }, 3000)
+    copyToClipboard(e.currentTarget.innerHTML);
+
+    if (!toast.current) return;
+
+    toastTimeline.current?.kill();
+    gsap.killTweensOf(toast.current);
+
+    toastTimeline.current = gsap
+      .timeline({overwrite: 'auto'})
+      .fromTo(
+        toast.current,
+        {
+          autoAlpha: 0,
+          y: 100,
+          scale: 0,
+        },
+        {
+          autoAlpha: 1,
+          y: -50,
+          scale: 1,
+          ease: 'elastic.out(1, .5)',
+          duration: 1.5,
+        }
+      )
+      .to(toast.current, {
+        autoAlpha: 0,
+        y: 100,
+        scale: 0,
+        ease: 'power2.in',
+        duration: 0.6,
+        delay: 0,
+      });
   }
 
   return (
@@ -69,24 +104,24 @@ export default function Footer() {
           <IconAsterisk />
         </div>
       </nav>
-      <div className="contact">
+      <div className="info">
         <div>
           <h2>E-MAIL</h2>
           <h1
-            onClick={(e) => copyInfo(e)}
+            onClick={copyInfo}
           >
             luizrxg@gmail.com
           </h1>
-          <span>Copied</span>
+          <IconCopy />
         </div>
         <div>
           <h2>PHONE</h2>
           <h1
-            onClick={(e) => copyInfo(e)}
+            onClick={copyInfo}
           >
             +55 34 99840 4105
           </h1>
-          <span>Copied</span>
+          <IconCopy />
         </div>
         <div>
           <h2>GITHUB</h2>
@@ -98,6 +133,7 @@ export default function Footer() {
               github.com/luizrxg
             </a>
           </h1>
+          <IconExternalLinkFilled />
         </div>
         <div>
           <h2>LINKEDIN</h2>
@@ -109,8 +145,15 @@ export default function Footer() {
               Luiz Ricardo Xavier Gomes
             </a>
           </h1>
+          <IconExternalLinkFilled />
         </div>
       </div>
+      <span
+        ref={toast}
+        className="copied-toast"
+      >
+        Copied
+      </span>
     </footer>
   )
 }

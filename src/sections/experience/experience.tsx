@@ -23,6 +23,13 @@ import Galaxy from "@/components/galaxy/galaxy";
 import GlassSurface from "@/components/glass-surface/glass-surface";
 import TargetCursor from "@/components/target-cursor/target-cursor";
 import FuzzyText from "@/components/fuzzy-text/fuzzy-text";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+gsap.registerPlugin(ScrollTrigger);
+
+ScrollTrigger.defaults({
+  preventOverlaps: true,
+});
 
 type SvgAsset = ComponentType<SVGProps<SVGSVGElement>>;
 
