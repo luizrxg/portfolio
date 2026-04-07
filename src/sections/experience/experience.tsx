@@ -121,7 +121,7 @@ export default function Experience() {
           glowIntensity={0.15}
           twinkleIntensity={0.1}
           rotationSpeed={0}
-          repulsionStrength={2}
+          repulsionStrength={.5}
           autoCenterRepulsion={0}
           starSpeed={1}
           speed={.1}
