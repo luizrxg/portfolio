@@ -66,9 +66,9 @@ type PlasmaShotStyle = CSSProperties & {
   '--shot-dy': string;
 };
 
-const SHOT_DURATION_MS = 600;
-const EXPLOSION_DURATION_MS = 380;
-const BLOOM_DURATION_MS = 520;
+const EXPLOSION_DURATION_MS = 300;
+const SHOT_DURATION_MS = 200;
+const BLOOM_DURATION_MS = 300;
 const BLOOM_PARTICLE_ANGLES = [0, 45, 90, 135, 180, 225, 270, 315] as const;
 
 const floatingAssets: FloatingAsset[] = [
