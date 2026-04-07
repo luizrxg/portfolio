@@ -48,48 +48,48 @@ export default function Experience() {
     gsap.fromTo(
       '#job-1',
       {
-        scale: 0,
+        filter: 'blur(100px)',
       },
       {
         scrollTrigger: {
           trigger: '#experience',
-          start: 'top+=4000 top',
+          start: 'top+=3500 top',
+          end: '+=500',
+          scrub: 1
         },
-        scale: 1,
-        ease: 'elastic.out(1, 0.5)',
-        duration: 1.5
+        filter: 'blur(0px)',
       }
     )
 
     gsap.fromTo(
       '#job-2',
       {
-        scale: 0,
+        filter: 'blur(100px)',
       },
       {
         scrollTrigger: {
           trigger: '#experience',
-          start: 'top+=5000 top',
+          start: 'top+=4500 top',
+          end: '+=500',
+          scrub: 1
         },
-        scale: 1,
-        ease: 'elastic.out(1, 0.5)',
-        duration: 1.5
+        filter: 'blur(0px)',
       }
     )
 
     gsap.fromTo(
       '#job-3',
       {
-        scale: 0,
+        filter: 'blur(100px)',
       },
       {
         scrollTrigger: {
           trigger: '#experience',
-          start: 'top+=6000 top',
+          start: 'top+=5500 top',
+          end: '+=500',
+          scrub: 1
         },
-        scale: 1,
-        ease: 'elastic.out(1, 0.5)',
-        duration: 1.5
+        filter: 'blur(0px)',
       }
     )
   }, { scope: container })
