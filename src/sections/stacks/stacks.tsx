@@ -157,6 +157,18 @@ export default function Stacks() {
             ))}
           </div>
         </div>
+        <div className="drag-tip">
+          <p>
+            Drag them around
+          </p>
+          <Image
+            src="/assets/images/looping-arrow.png"
+            alt="Looping arrow"
+            className="arrow"
+            width={2048}
+            height={2048}
+          />
+        </div>
         <SpikesSVG className="spikes"/>
 
       </ClickSpark>

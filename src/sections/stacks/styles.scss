@@ -74,3 +74,26 @@
   width: 5896px;
 }
 
+.drag-tip {
+  display: flex;
+  align-items: end;
+  justify-content: center;
+  position: absolute;
+  bottom: 20px;
+  left: 80px;
+
+  & > p {
+    font-size: 2.5rem;
+    font-weight: 500;
+    color: #ffffff;
+    font-family: var(--font-handwritten);
+    transform: rotateZ(-12deg);
+  }
+
+  & > img {
+    width: 100px;
+    height: 100px;
+    margin-left: 0.5rem;
+    margin-bottom: 2.5rem
+  }
+}
