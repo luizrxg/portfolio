@@ -47,6 +47,7 @@ export default function Stacks() {
           scrub: 1,
         },
         y: -90,
+        preventOverlaps: true
       }
     )
 

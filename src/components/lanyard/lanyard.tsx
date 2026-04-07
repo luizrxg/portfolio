@@ -59,7 +59,7 @@ export default function Lanyard() {
             </div>
             <aside className="lanyard-back-content">
               <div>
-                <h2>Email</h2>
+                <h2>E-mail</h2>
                 <h1>luizrxg@gmail.com</h1>
               </div>
               <div>
