@@ -42,6 +42,7 @@ type FloatingAsset = {
 };
 
 type FloatingAssetStyle = CSSProperties & {
+  '--asset-opacity': string;
   '--float-distance': string;
   '--float-distance-negative': string;
   '--asset-rotation': string;
@@ -61,6 +62,13 @@ type ImpactBloom = {
   y: number;
 };
 
+type ScorePopup = {
+  id: string;
+  x: number;
+  y: number;
+  value: number;
+};
+
 type PlasmaShotStyle = CSSProperties & {
   '--shot-dx': string;
   '--shot-dy': string;
@@ -69,14 +77,49 @@ type PlasmaShotStyle = CSSProperties & {
 const EXPLOSION_DURATION_MS = 300;
 const SHOT_DURATION_MS = 200;
 const BLOOM_DURATION_MS = 300;
+const SCORE_POP_DURATION_MS = 650;
+const GAME_OVER_BLINK_MS = 3000;
+const GAME_OVER_TO_PLAY_AGAIN_DELAY_MS = 3000;
 const BLOOM_PARTICLE_ANGLES = [0, 45, 90, 135, 180, 225, 270, 315] as const;
 
+const PLANET_IDS = new Set(['earth', 'jupiter', 'mars', 'moon', 'neptune', 'pluto', 'saturn']);
+
+type ScoreOutcome = {
+  points: number;
+  isGameOver: boolean;
+};
+
+const getScoreOutcome = (assetId: string): ScoreOutcome => {
+  if (PLANET_IDS.has(assetId)) {
+    return { points: 0, isGameOver: true };
+  }
+
+  if (assetId.startsWith('asteroid-')) {
+    return { points: 50, isGameOver: false };
+  }
+
+  if (assetId === 'death-star') {
+    return { points: 100, isGameOver: false };
+  }
+
+  if (assetId.startsWith('satellite-') || assetId.startsWith('ring-ship-') || assetId.startsWith('station-')) {
+    return { points: -30, isGameOver: false };
+  }
+
+  return { points: 0, isGameOver: false };
+};
+
 const floatingAssets: FloatingAsset[] = [
-  { id: 'asteroid-a', Asset: AsteroidSVG, top: '8%', left: '6%', size: 56, opacity: 1, drift: 18, duration: 8.5, delay: -2.1, rotation: -10, zIndex: 0 },
+  { id: 'asteroid-a', Asset: AsteroidSVG, top: '8%', left: '6%', size: 76, opacity: 1, drift: 18, duration: 8.5, delay: -2.1, rotation: -10, zIndex: 0 },
+  { id: 'asteroid-b', Asset: AsteroidSVG, top: '57%', right: '4%', size: 80, opacity: 1, drift: 14, duration: 7.9, delay: -1.9, rotation: 23, zIndex: 0 },
+  { id: 'asteroid-c', Asset: AsteroidSVG, top: '19%', left: '54%', size: 74, opacity: 1, drift: 16, duration: 8.7, delay: -3.3, rotation: 14, zIndex: 0 },
+  { id: 'asteroid-d', Asset: AsteroidSVG, top: '46%', right: '28%', size: 92, opacity: 1, drift: 21, duration: 9.4, delay: -2.6, rotation: -18, zIndex: 0 },
+  { id: 'asteroid-e', Asset: AsteroidSVG, top: '73%', left: '39%', size: 52, opacity: 1, drift: 13, duration: 7.4, delay: -4.1, rotation: 27, zIndex: 0 },
+  { id: 'asteroid-f', Asset: AsteroidSVG, top: '88%', right: '16%', size: 70, opacity: 1, drift: 18, duration: 8.9, delay: -1.4, rotation: -7, zIndex: 0 },
   { id: 'death-star', Asset: DeathStarSVG, top: '18%', right: '9%', size: 128, opacity: 1, drift: 24, duration: 12.2, delay: -1.7, rotation: 8, zIndex: 0 },
   { id: 'earth', Asset: EarthSVG, top: '24%', left: '24%', size: 102, opacity: 1, drift: 20, duration: 11.4, delay: -4.2, rotation: -6, zIndex: 0 },
   { id: 'jupiter', Asset: JupiterSVG, top: '35%', right: '19%', size: 154, opacity: 1, drift: 28, duration: 14.3, delay: -0.8, rotation: 12, zIndex: 0 },
-  { id: 'mars', Asset: MarsSVG, top: '44%', left: '11%', size: 74, opacity: 1, drift: 16, duration: 9.1, delay: -3.8, rotation: -9, zIndex: 0 },
+  { id: 'mars', Asset: MarsSVG, top: '34%', left: '11%', size: 74, opacity: 1, drift: 16, duration: 9.1, delay: -3.8, rotation: -9, zIndex: 0 },
   { id: 'moon', Asset: MoonSVG, top: '52%', right: '36%', size: 88, opacity: 1, drift: 19, duration: 10.5, delay: -5.5, rotation: 4, zIndex: 0 },
   { id: 'neptune', Asset: NeptuneSVG, top: '60%', left: '31%', size: 132, opacity: 1, drift: 26, duration: 13.7, delay: -2.8, rotation: 7, zIndex: 0 },
   { id: 'pluto', Asset: PlutoSVG, top: '70%', right: '8%', size: 62, opacity: 1, drift: 15, duration: 8.8, delay: -1.1, rotation: -14, zIndex: 0 },
@@ -87,7 +130,6 @@ const floatingAssets: FloatingAsset[] = [
   { id: 'satellite-b', Asset: SatelliteSVG, top: '84%', right: '41%', size: 58, opacity: 1, drift: 18, duration: 8.6, delay: -2.4, rotation: -12, zIndex: 0 },
   { id: 'station-a', Asset: StationSVG, top: '40%', left: '42%', size: 118, opacity: 1, drift: 24, duration: 13.1, delay: -0.5, rotation: -16, zIndex: 0 },
   { id: 'station-b', Asset: StationSVG, top: '90%', left: '56%', size: 82, opacity: 1, drift: 20, duration: 10.9, delay: -6.4, rotation: 9, zIndex: 0 },
-  { id: 'asteroid-b', Asset: AsteroidSVG, top: '57%', right: '4%', size: 48, opacity: 1, drift: 14, duration: 7.9, delay: -1.9, rotation: 23, zIndex: 0 },
 ];
 
 export default function Experience() {
@@ -99,9 +141,16 @@ export default function Experience() {
 
   const [activeShots, setActiveShots] = useState<PlasmaShot[]>([]);
   const [activeBlooms, setActiveBlooms] = useState<ImpactBloom[]>([]);
+  const [activeScorePopups, setActiveScorePopups] = useState<ScorePopup[]>([]);
   const [targetedAssets, setTargetedAssets] = useState<Set<string>>(new Set());
   const [explodingAssets, setExplodingAssets] = useState<Set<string>>(new Set());
   const [destroyedAssets, setDestroyedAssets] = useState<Set<string>>(new Set());
+  const [score, setScore] = useState(0);
+  const [isGameOver, setIsGameOver] = useState(false);
+  const [isScoreBlinking, setIsScoreBlinking] = useState(false);
+  const [canPlayAgain, setCanPlayAgain] = useState(false);
+  const [isRespawningAssets, setIsRespawningAssets] = useState(false);
+  const scoreElementRef = useRef<HTMLHeadingElement | null>(null);
 
   useEffect(() => {
     return () => {
@@ -111,7 +160,7 @@ export default function Experience() {
   }, []);
 
   const launchPlasmaShot = (assetId: string) => {
-    if (targetedAssets.has(assetId) || explodingAssets.has(assetId) || destroyedAssets.has(assetId)) {
+    if (isGameOver || targetedAssets.has(assetId) || explodingAssets.has(assetId) || destroyedAssets.has(assetId)) {
       return;
     }
 
@@ -151,6 +200,8 @@ export default function Experience() {
     const hitTimeout = window.setTimeout(() => {
       setActiveShots((previous) => previous.filter((shot) => shot.id !== shotId));
       const bloomId = `bloom-${shotId}`;
+      const scorePopId = `score-pop-${shotId}`;
+      const outcome = getScoreOutcome(assetId);
 
       setActiveBlooms((previous) => [
         ...previous,
@@ -164,6 +215,24 @@ export default function Experience() {
       const bloomTimeout = window.setTimeout(() => {
         setActiveBlooms((previous) => previous.filter((bloom) => bloom.id !== bloomId));
       }, BLOOM_DURATION_MS);
+
+      if (!outcome.isGameOver && outcome.points !== 0) {
+        setActiveScorePopups((previous) => [
+          ...previous,
+          {
+            id: scorePopId,
+            x: toX + 24,
+            y: toY - 12,
+            value: outcome.points,
+          }
+        ]);
+
+        const scorePopTimeout = window.setTimeout(() => {
+          setActiveScorePopups((previous) => previous.filter((popup) => popup.id !== scorePopId));
+        }, SCORE_POP_DURATION_MS);
+
+        timeoutRefs.current.push(scorePopTimeout);
+      }
 
       setTargetedAssets((previous) => {
         const next = new Set(previous);
@@ -189,6 +258,26 @@ export default function Experience() {
           next.add(assetId);
           return next;
         });
+
+        if (outcome.isGameOver) {
+          setIsGameOver(true);
+          setIsScoreBlinking(true);
+
+          const stopBlinkTimeout = window.setTimeout(() => {
+            setIsScoreBlinking(false);
+
+            const showPlayAgainTimeout = window.setTimeout(() => {
+              setCanPlayAgain(true);
+            }, GAME_OVER_TO_PLAY_AGAIN_DELAY_MS);
+
+            timeoutRefs.current.push(showPlayAgainTimeout);
+          }, GAME_OVER_BLINK_MS);
+
+          timeoutRefs.current.push(stopBlinkTimeout);
+          return;
+        }
+
+        setScore((previous) => Math.max(0, previous + outcome.points));
       }, EXPLOSION_DURATION_MS);
 
       timeoutRefs.current.push(removeTimeout);
@@ -196,6 +285,57 @@ export default function Experience() {
     }, SHOT_DURATION_MS);
 
     timeoutRefs.current.push(hitTimeout);
+  };
+
+  const restartGame = () => {
+    setScore(0);
+    setIsGameOver(false);
+    setIsScoreBlinking(false);
+    setCanPlayAgain(false);
+    setActiveBlooms([]);
+    setActiveScorePopups([]);
+    setTargetedAssets(new Set());
+    setExplodingAssets(new Set());
+    setDestroyedAssets(new Set());
+
+    setIsRespawningAssets(true);
+    const respawnFadeTimeout = window.setTimeout(() => {
+      setIsRespawningAssets(false);
+    }, 40);
+
+    timeoutRefs.current.push(respawnFadeTimeout);
+  };
+
+  const shootPlayAgain = () => {
+    if (!canPlayAgain || !scoreElementRef.current) {
+      return;
+    }
+
+    const scoreRect = scoreElementRef.current.getBoundingClientRect();
+    const fromX = window.innerWidth / 2;
+    const fromY = window.innerHeight - 40;
+    const toX = scoreRect.left + (scoreRect.width / 2);
+    const toY = scoreRect.top + (scoreRect.height / 2);
+    const shotId = `restart-${shotCounter.current}`;
+    shotCounter.current += 1;
+
+    setActiveShots((previous) => [
+      ...previous,
+      {
+        id: shotId,
+        fromX,
+        fromY,
+        dx: toX - fromX,
+        dy: toY - fromY,
+      }
+    ]);
+
+    const restartTimeout = window.setTimeout(() => {
+      setActiveShots((previous) => previous.filter((shot) => shot.id !== shotId));
+      restartGame();
+    }, SHOT_DURATION_MS);
+
+    timeoutRefs.current.push(restartTimeout);
   };
 
   useGSAP(() => {
@@ -241,6 +381,22 @@ export default function Experience() {
           scrub: 1,
         },
         top: -1000
+      }
+    )
+
+    gsap.fromTo(
+      '.score',
+      {
+        opacity: 0
+      },
+      {
+        scrollTrigger: {
+          trigger: '#experience',
+          start: 'top+=3500 top',
+          end: '+=200',
+          scrub: 1,
+        },
+        opacity: 1,
       }
     )
 
@@ -320,6 +476,13 @@ export default function Experience() {
       >
         JOURNEY
       </FuzzyText>
+      <h1
+        ref={scoreElementRef}
+        className={`score ${isScoreBlinking ? 'is-blinking' : ''} ${canPlayAgain ? 'cursor-target is-play-again' : ''}`}
+        onClick={shootPlayAgain}
+      >
+        {canPlayAgain ? 'PLAY AGAIN ?' : isGameOver ? 'GAME OVER' : `SCORE ${score}`}
+      </h1>
       <DottedLineSVG className="dotted-line"/>
       <div className="spaceship-wrapper cursor-target">
         <div className="spaceship">
@@ -342,7 +505,7 @@ export default function Experience() {
         />
       </div>
       <div
-        className="space-assets-layer"
+        className={`space-assets-layer ${isRespawningAssets ? 'is-respawning' : ''}`}
         aria-hidden="true"
       >
         {floatingAssets.map((asset) => {
@@ -356,7 +519,7 @@ export default function Experience() {
             right: asset.right,
             width: `${asset.size}px`,
             height: `${asset.size}px`,
-            opacity: asset.opacity,
+            '--asset-opacity': `${asset.opacity}`,
             zIndex: asset.zIndex,
             animationDuration: `${asset.duration}s`,
             animationDelay: `${asset.delay}s`,
@@ -371,7 +534,7 @@ export default function Experience() {
               ref={(element) => {
                 floatingAssetRefs.current[asset.id] = element;
               }}
-              className={`space-asset cursor-target ${explodingAssets.has(asset.id) ? 'is-exploding' : ''}`}
+              className={`space-asset cursor-target ${PLANET_IDS.has(asset.id) ? 'is-planet' : ''} ${explodingAssets.has(asset.id) ? 'is-exploding' : ''}`}
               style={assetStyle}
               onClick={() => launchPlasmaShot(asset.id)}
             >
@@ -420,6 +583,19 @@ export default function Experience() {
                 } as CSSProperties}
               />
             ))}
+          </span>
+        ))}
+        {activeScorePopups.map((popup) => (
+          <span
+            key={popup.id}
+            className={`score-pop ${popup.value < 0 ? 'is-negative' : 'is-positive'}`}
+            style={{
+              left: `${popup.x}px`,
+              top: `${popup.y}px`,
+              animationDuration: `${SCORE_POP_DURATION_MS}ms`
+            }}
+          >
+            {popup.value > 0 ? `+${popup.value}` : popup.value}
           </span>
         ))}
       </div>

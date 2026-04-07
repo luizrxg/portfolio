@@ -72,23 +72,50 @@
   pointer-events: none;
 }
 
+.score {
+  position: fixed;
+  top: 50px;
+  right: 50px;
+  z-index: 0;
+  font-family: var(--font-arcade);
+  font-size: 3rem;
+  color: #ffffff;
+
+  &.is-blinking {
+    animation: score-blink .3s steps(2, end) infinite;
+  }
+
+  &.is-play-again {
+    color: #ffd166;
+    text-shadow: 0 0 10px #ff9f1c;
+  }
+}
+
 .space-assets-layer {
   position: absolute;
   inset: 0;
   overflow: hidden;
   pointer-events: none;
   z-index: 0;
+
+  &.is-respawning {
+    & .space-asset {
+      opacity: 0;
+    }
+  }
 }
 
 .space-asset {
   position: absolute;
+  opacity: var(--asset-opacity, 1);
   animation-name: space-float;
   animation-timing-function: ease-in-out;
   animation-iteration-count: infinite;
   animation-direction: alternate;
-  transform: translateY(var(--float-distance-negative)) rotate(var(--asset-rotation));
+  transform: translateY(var(--float-distance-negative, 0px)) rotate(var(--asset-rotation, 0deg));
   will-change: transform;
   pointer-events: auto;
+  transition: opacity .65s ease;
 
   & > svg {
     width: 100%;
@@ -147,8 +174,28 @@
   background: linear-gradient(180deg, #ffe3b4 0%, #ff9500 55%, #ff4f00 100%);
   box-shadow: 0 0 10px #ff8a00;
   transform-origin: center bottom;
-  transform: rotate(var(--particle-angle)) translateY(-4px) scaleY(1);
+  transform: rotate(var(--particle-angle, 0deg)) translateY(-4px) scaleY(1);
   animation: impact-particle-burst .52s ease-out forwards;
+}
+
+.score-pop {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  font-family: var(--font-arcade);
+  font-size: 1.5rem;
+  line-height: 1;
+  color: #ffd166;
+  text-shadow: 0 0 6px #ff8a00, 0 0 14px #ff4f00;
+  animation: score-pop-rise-fade .65s ease-out forwards;
+
+  &.is-positive {
+    color: #ffd166;
+  }
+
+  &.is-negative {
+    color: #ff5f5f;
+    text-shadow: 0 0 6px #ff3d3d, 0 0 14px #ff1616;
+  }
 }
 
 .job {
@@ -259,11 +306,11 @@
 
 @keyframes space-float {
   0% {
-    transform: translateY(var(--float-distance-negative)) rotate(var(--asset-rotation));
+    transform: translateY(var(--float-distance-negative, 0px)) rotate(var(--asset-rotation, 0deg));
   }
 
   100% {
-    transform: translateY(var(--float-distance)) rotate(calc(var(--asset-rotation) + 6deg));
+    transform: translateY(var(--float-distance, 0px)) rotate(calc(var(--asset-rotation, 0deg) + 6deg));
   }
 }
 
@@ -295,12 +342,41 @@
 
 @keyframes impact-particle-burst {
   0% {
-    transform: rotate(var(--particle-angle)) translateY(-4px) scaleY(1);
+    transform: rotate(var(--particle-angle, 0deg)) translateY(-4px) scaleY(1);
     opacity: 1;
   }
 
   100% {
-    transform: rotate(var(--particle-angle)) translateY(-54px) scaleY(.2);
+    transform: rotate(var(--particle-angle, 0deg)) translateY(-54px) scaleY(.2);
+    opacity: 0;
+  }
+}
+
+@keyframes score-blink {
+  0%,
+  49% {
+    opacity: 1;
+  }
+
+  50%,
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes score-pop-rise-fade {
+  0% {
+    transform: translate(-50%, -50%) scale(.92);
+    opacity: 0;
+  }
+
+  20% {
+    transform: translate(-50%, -58%) scale(1);
+    opacity: 1;
+  }
+
+  100% {
+    transform: translate(-50%, -120%) scale(1.04);
     opacity: 0;
   }
 }
@@ -308,7 +384,7 @@
 @media (prefers-reduced-motion: reduce) {
   .space-asset {
     animation: none;
-    transform: translateY(0) rotate(var(--asset-rotation));
+    transform: translateY(0) rotate(var(--asset-rotation, 0deg));
   }
 
   .plasma-bullet {
@@ -320,5 +396,14 @@
   .impact-particle {
     animation: none;
     opacity: 0;
+  }
+
+  .score-pop {
+    animation: none;
+    opacity: 0;
+  }
+
+  .score.is-blinking {
+    animation: none;
   }
 }

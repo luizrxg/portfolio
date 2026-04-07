@@ -1,6 +1,6 @@
 import type {Metadata} from "next";
 import localFont from "next/font/local";
-import { JetBrains_Mono as MonoFont } from "next/font/google";
+import { JetBrains_Mono as MonoFont, Sixtyfour as ArcadeFont } from "next/font/google";
 import "./globals.scss";
 import {ReactNode} from "react";
 import {cn} from "@/utils/string";
@@ -13,6 +13,11 @@ const defaultFont = localFont({
 const monospacedFont = MonoFont({
   subsets: ["latin"],
   variable: "--font-mono",
+});
+
+const arcadeFont = ArcadeFont({
+  subsets: ["latin"],
+  variable: "--font-arcade",
 });
 
 const displayFont = localFont({
@@ -35,11 +40,6 @@ const handwrittenFont = localFont({
   variable: "--font-handwritten",
 });
 
-const comicFont = localFont({
-  src: "../../public/assets/fonts/comico/Comico-Regular.ttf",
-  variable: "--font-comic",
-});
-
 export const metadata: Metadata = {
   title: "Luiz Gomes | Front-end Dev",
   description: "Portfolio",
@@ -56,12 +56,12 @@ export default function RootLayout({
       lang="en"
       className={cn(
         defaultFont.className,
-        displayFont.variable,
         monospacedFont.variable,
+        arcadeFont.variable,
+        displayFont.variable,
         glyphFont.variable,
         paquitoFont.variable,
-        handwrittenFont.variable,
-        comicFont.variable,
+        handwrittenFont.variable
       )}
     >
       <body>
