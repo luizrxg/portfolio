@@ -1,7 +1,7 @@
 'use client'
 
 import './styles.scss';
-import {type CSSProperties, type ComponentType, type SVGProps, useRef} from "react";
+import {type CSSProperties, type ComponentType, type SVGProps, useEffect, useRef, useState} from "react";
 import {useGSAP} from "@gsap/react";
 import gsap from "gsap";
 import DottedLineSVG from '@/assets/svgs/misc/dotted-line.svg'
@@ -43,31 +43,160 @@ type FloatingAsset = {
 
 type FloatingAssetStyle = CSSProperties & {
   '--float-distance': string;
+  '--float-distance-negative': string;
   '--asset-rotation': string;
 };
 
+type PlasmaShot = {
+  id: string;
+  fromX: number;
+  fromY: number;
+  dx: number;
+  dy: number;
+};
+
+type ImpactBloom = {
+  id: string;
+  x: number;
+  y: number;
+};
+
+type PlasmaShotStyle = CSSProperties & {
+  '--shot-dx': string;
+  '--shot-dy': string;
+};
+
+const SHOT_DURATION_MS = 600;
+const EXPLOSION_DURATION_MS = 380;
+const BLOOM_DURATION_MS = 520;
+const BLOOM_PARTICLE_ANGLES = [0, 45, 90, 135, 180, 225, 270, 315] as const;
+
 const floatingAssets: FloatingAsset[] = [
-  { id: 'asteroid-a', Asset: AsteroidSVG, top: '8%', left: '6%', size: 56, opacity: 0.72, drift: 18, duration: 8.5, delay: -2.1, rotation: -10, zIndex: 0 },
-  { id: 'death-star', Asset: DeathStarSVG, top: '18%', right: '9%', size: 128, opacity: 0.45, drift: 24, duration: 12.2, delay: -1.7, rotation: 8, zIndex: 0 },
-  { id: 'earth', Asset: EarthSVG, top: '24%', left: '24%', size: 102, opacity: 0.58, drift: 20, duration: 11.4, delay: -4.2, rotation: -6, zIndex: 0 },
-  { id: 'jupiter', Asset: JupiterSVG, top: '35%', right: '19%', size: 154, opacity: 0.36, drift: 28, duration: 14.3, delay: -0.8, rotation: 12, zIndex: 0 },
-  { id: 'mars', Asset: MarsSVG, top: '44%', left: '11%', size: 74, opacity: 0.69, drift: 16, duration: 9.1, delay: -3.8, rotation: -9, zIndex: 0 },
-  { id: 'moon', Asset: MoonSVG, top: '52%', right: '36%', size: 88, opacity: 0.63, drift: 19, duration: 10.5, delay: -5.5, rotation: 4, zIndex: 0 },
-  { id: 'neptune', Asset: NeptuneSVG, top: '60%', left: '31%', size: 132, opacity: 0.39, drift: 26, duration: 13.7, delay: -2.8, rotation: 7, zIndex: 0 },
-  { id: 'pluto', Asset: PlutoSVG, top: '70%', right: '8%', size: 62, opacity: 0.74, drift: 15, duration: 8.8, delay: -1.1, rotation: -14, zIndex: 0 },
-  { id: 'saturn', Asset: SaturnSVG, top: '78%', left: '16%', size: 146, opacity: 0.42, drift: 25, duration: 12.9, delay: -6.1, rotation: 10, zIndex: 0 },
-  { id: 'ring-ship-a', Asset: RingShipSVG, top: '14%', left: '44%', size: 76, opacity: 0.63, drift: 21, duration: 9.7, delay: -4.6, rotation: 18, zIndex: 0 },
-  { id: 'ring-ship-b', Asset: RingShipSVG, top: '66%', right: '23%', size: 94, opacity: 0.52, drift: 23, duration: 11.8, delay: -3.3, rotation: -22, zIndex: 0 },
-  { id: 'satellite-a', Asset: SatelliteSVG, top: '30%', right: '33%', size: 72, opacity: 0.71, drift: 27, duration: 10.2, delay: -5.2, rotation: 14, zIndex: 0 },
-  { id: 'satellite-b', Asset: SatelliteSVG, top: '84%', right: '41%', size: 58, opacity: 0.78, drift: 18, duration: 8.6, delay: -2.4, rotation: -12, zIndex: 0 },
-  { id: 'station-a', Asset: StationSVG, top: '40%', left: '42%', size: 118, opacity: 0.47, drift: 24, duration: 13.1, delay: -0.5, rotation: -16, zIndex: 0 },
-  { id: 'station-b', Asset: StationSVG, top: '90%', left: '56%', size: 82, opacity: 0.6, drift: 20, duration: 10.9, delay: -6.4, rotation: 9, zIndex: 0 },
-  { id: 'asteroid-b', Asset: AsteroidSVG, top: '57%', right: '4%', size: 48, opacity: 0.8, drift: 14, duration: 7.9, delay: -1.9, rotation: 23, zIndex: 0 },
+  { id: 'asteroid-a', Asset: AsteroidSVG, top: '8%', left: '6%', size: 56, opacity: 1, drift: 18, duration: 8.5, delay: -2.1, rotation: -10, zIndex: 0 },
+  { id: 'death-star', Asset: DeathStarSVG, top: '18%', right: '9%', size: 128, opacity: 1, drift: 24, duration: 12.2, delay: -1.7, rotation: 8, zIndex: 0 },
+  { id: 'earth', Asset: EarthSVG, top: '24%', left: '24%', size: 102, opacity: 1, drift: 20, duration: 11.4, delay: -4.2, rotation: -6, zIndex: 0 },
+  { id: 'jupiter', Asset: JupiterSVG, top: '35%', right: '19%', size: 154, opacity: 1, drift: 28, duration: 14.3, delay: -0.8, rotation: 12, zIndex: 0 },
+  { id: 'mars', Asset: MarsSVG, top: '44%', left: '11%', size: 74, opacity: 1, drift: 16, duration: 9.1, delay: -3.8, rotation: -9, zIndex: 0 },
+  { id: 'moon', Asset: MoonSVG, top: '52%', right: '36%', size: 88, opacity: 1, drift: 19, duration: 10.5, delay: -5.5, rotation: 4, zIndex: 0 },
+  { id: 'neptune', Asset: NeptuneSVG, top: '60%', left: '31%', size: 132, opacity: 1, drift: 26, duration: 13.7, delay: -2.8, rotation: 7, zIndex: 0 },
+  { id: 'pluto', Asset: PlutoSVG, top: '70%', right: '8%', size: 62, opacity: 1, drift: 15, duration: 8.8, delay: -1.1, rotation: -14, zIndex: 0 },
+  { id: 'saturn', Asset: SaturnSVG, top: '78%', left: '16%', size: 146, opacity: 1, drift: 25, duration: 12.9, delay: -6.1, rotation: 10, zIndex: 0 },
+  { id: 'ring-ship-a', Asset: RingShipSVG, top: '14%', left: '44%', size: 76, opacity: 1, drift: 21, duration: 9.7, delay: -4.6, rotation: 18, zIndex: 0 },
+  { id: 'ring-ship-b', Asset: RingShipSVG, top: '66%', right: '23%', size: 94, opacity: 1, drift: 23, duration: 11.8, delay: -3.3, rotation: -22, zIndex: 0 },
+  { id: 'satellite-a', Asset: SatelliteSVG, top: '30%', right: '33%', size: 72, opacity: 1, drift: 27, duration: 10.2, delay: -5.2, rotation: 14, zIndex: 0 },
+  { id: 'satellite-b', Asset: SatelliteSVG, top: '84%', right: '41%', size: 58, opacity: 1, drift: 18, duration: 8.6, delay: -2.4, rotation: -12, zIndex: 0 },
+  { id: 'station-a', Asset: StationSVG, top: '40%', left: '42%', size: 118, opacity: 1, drift: 24, duration: 13.1, delay: -0.5, rotation: -16, zIndex: 0 },
+  { id: 'station-b', Asset: StationSVG, top: '90%', left: '56%', size: 82, opacity: 1, drift: 20, duration: 10.9, delay: -6.4, rotation: 9, zIndex: 0 },
+  { id: 'asteroid-b', Asset: AsteroidSVG, top: '57%', right: '4%', size: 48, opacity: 1, drift: 14, duration: 7.9, delay: -1.9, rotation: 23, zIndex: 0 },
 ];
 
 export default function Experience() {
 
-  const container = useRef(null);
+  const container = useRef<HTMLDivElement | null>(null);
+  const floatingAssetRefs = useRef<Record<string, HTMLDivElement | null>>({});
+  const timeoutRefs = useRef<number[]>([]);
+  const shotCounter = useRef(0);
+
+  const [activeShots, setActiveShots] = useState<PlasmaShot[]>([]);
+  const [activeBlooms, setActiveBlooms] = useState<ImpactBloom[]>([]);
+  const [targetedAssets, setTargetedAssets] = useState<Set<string>>(new Set());
+  const [explodingAssets, setExplodingAssets] = useState<Set<string>>(new Set());
+  const [destroyedAssets, setDestroyedAssets] = useState<Set<string>>(new Set());
+
+  useEffect(() => {
+    return () => {
+      timeoutRefs.current.forEach((timerId) => window.clearTimeout(timerId));
+      timeoutRefs.current = [];
+    }
+  }, []);
+
+  const launchPlasmaShot = (assetId: string) => {
+    if (targetedAssets.has(assetId) || explodingAssets.has(assetId) || destroyedAssets.has(assetId)) {
+      return;
+    }
+
+    const sectionElement = container.current;
+    const assetElement = floatingAssetRefs.current[assetId];
+
+    if (!sectionElement || !assetElement) {
+      return;
+    }
+
+    const assetRect = assetElement.getBoundingClientRect();
+
+    const fromX = window.innerWidth / 2;
+    const fromY = window.innerHeight - 40;
+    const toX = assetRect.left + (assetRect.width / 2);
+    const toY = assetRect.top + (assetRect.height / 2);
+    const shotId = `${assetId}-${shotCounter.current}`;
+    shotCounter.current += 1;
+
+    setTargetedAssets((previous) => {
+      const next = new Set(previous);
+      next.add(assetId);
+      return next;
+    });
+
+    setActiveShots((previous) => [
+      ...previous,
+      {
+        id: shotId,
+        fromX,
+        fromY,
+        dx: toX - fromX,
+        dy: toY - fromY,
+      }
+    ]);
+
+    const hitTimeout = window.setTimeout(() => {
+      setActiveShots((previous) => previous.filter((shot) => shot.id !== shotId));
+      const bloomId = `bloom-${shotId}`;
+
+      setActiveBlooms((previous) => [
+        ...previous,
+        {
+          id: bloomId,
+          x: toX,
+          y: toY,
+        }
+      ]);
+
+      const bloomTimeout = window.setTimeout(() => {
+        setActiveBlooms((previous) => previous.filter((bloom) => bloom.id !== bloomId));
+      }, BLOOM_DURATION_MS);
+
+      setTargetedAssets((previous) => {
+        const next = new Set(previous);
+        next.delete(assetId);
+        return next;
+      });
+
+      setExplodingAssets((previous) => {
+        const next = new Set(previous);
+        next.add(assetId);
+        return next;
+      });
+
+      const removeTimeout = window.setTimeout(() => {
+        setExplodingAssets((previous) => {
+          const next = new Set(previous);
+          next.delete(assetId);
+          return next;
+        });
+
+        setDestroyedAssets((previous) => {
+          const next = new Set(previous);
+          next.add(assetId);
+          return next;
+        });
+      }, EXPLOSION_DURATION_MS);
+
+      timeoutRefs.current.push(removeTimeout);
+      timeoutRefs.current.push(bloomTimeout);
+    }, SHOT_DURATION_MS);
+
+    timeoutRefs.current.push(hitTimeout);
+  };
 
   useGSAP(() => {
     gsap.to(
@@ -191,7 +320,7 @@ export default function Experience() {
       >
         JOURNEY
       </FuzzyText>
-      <DottedLineSVG className="dotted-line cursor-target"/>
+      <DottedLineSVG className="dotted-line"/>
       <div className="spaceship-wrapper cursor-target">
         <div className="spaceship">
           <FireSVG id="fire"/>
@@ -217,6 +346,10 @@ export default function Experience() {
         aria-hidden="true"
       >
         {floatingAssets.map((asset) => {
+          if (destroyedAssets.has(asset.id)) {
+            return null;
+          }
+
           const assetStyle: FloatingAssetStyle = {
             top: asset.top,
             left: asset.left,
@@ -228,14 +361,19 @@ export default function Experience() {
             animationDuration: `${asset.duration}s`,
             animationDelay: `${asset.delay}s`,
             '--float-distance': `${asset.drift}px`,
+            '--float-distance-negative': `-${asset.drift}px`,
             '--asset-rotation': `${asset.rotation}deg`,
           };
 
           return (
             <div
               key={asset.id}
-              className="space-asset cursor-target"
+              ref={(element) => {
+                floatingAssetRefs.current[asset.id] = element;
+              }}
+              className={`space-asset cursor-target ${explodingAssets.has(asset.id) ? 'is-exploding' : ''}`}
               style={assetStyle}
+              onClick={() => launchPlasmaShot(asset.id)}
             >
               <asset.Asset />
             </div>
@@ -243,8 +381,51 @@ export default function Experience() {
         })}
       </div>
       <div
+        className="experience-effects-layer"
+        aria-hidden="true"
+      >
+        {activeShots.map((shot) => {
+          const shotStyle: PlasmaShotStyle = {
+            left: `${shot.fromX}px`,
+            top: `${shot.fromY}px`,
+            '--shot-dx': `${shot.dx}px`,
+            '--shot-dy': `${shot.dy}px`,
+            animationDuration: `${SHOT_DURATION_MS}ms`
+          };
+
+          return (
+            <span
+              key={shot.id}
+              className="plasma-bullet"
+              style={shotStyle}
+            />
+          )
+        })}
+        {activeBlooms.map((bloom) => (
+          <span
+            key={bloom.id}
+            className="impact-bloom"
+            style={{
+              left: `${bloom.x}px`,
+              top: `${bloom.y}px`,
+              animationDuration: `${BLOOM_DURATION_MS}ms`
+            }}
+          >
+            {BLOOM_PARTICLE_ANGLES.map((angle) => (
+              <span
+                key={`${bloom.id}-${angle}`}
+                className="impact-particle"
+                style={{
+                  '--particle-angle': `${angle}deg`
+                } as CSSProperties}
+              />
+            ))}
+          </span>
+        ))}
+      </div>
+      <div
         id="job-1"
-        className="job cursor-target"
+        className="job"
       >
         <GlassSurface
           width={600}
@@ -289,7 +470,7 @@ export default function Experience() {
 
       <div
         id="job-2"
-        className="job cursor-target"
+        className="job"
       >
         <GlassSurface
           width={600}
@@ -320,7 +501,7 @@ export default function Experience() {
 
       <div
         id="job-3"
-        className="job cursor-target"
+        className="job"
       >
         <GlassSurface
           width={600}

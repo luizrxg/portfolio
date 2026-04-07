@@ -76,6 +76,7 @@
   position: absolute;
   inset: 0;
   overflow: hidden;
+  pointer-events: none;
   z-index: 0;
 }
 
@@ -85,14 +86,69 @@
   animation-timing-function: ease-in-out;
   animation-iteration-count: infinite;
   animation-direction: alternate;
-  transform: translateY(calc(var(--float-distance) * -1)) rotate(var(--asset-rotation));
+  transform: translateY(var(--float-distance-negative)) rotate(var(--asset-rotation));
   will-change: transform;
+  pointer-events: auto;
 
   & > svg {
     width: 100%;
     height: 100%;
     display: block;
+    transform-origin: center;
+    transition: transform .38s ease, opacity .38s ease;
   }
+
+  &.is-exploding {
+    animation-play-state: paused;
+
+    & > svg {
+      transform: scale(1.9);
+      opacity: 0;
+    }
+  }
+}
+
+.experience-effects-layer {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 6;
+}
+
+.plasma-bullet {
+  width: 16px;
+  height: 16px;
+  display: block;
+  border-radius: 50%;
+  position: absolute;
+  background: radial-gradient(circle at 30% 30%, #ffd48a 0%, #ff8a00 40%, #ff4f00 100%);
+  box-shadow: 0 0 12px #ff8a00, 0 0 26px #ff4f00;
+  will-change: transform, opacity;
+  animation-name: plasma-shot;
+  animation-timing-function: linear;
+  animation-fill-mode: forwards;
+}
+
+.impact-bloom {
+  position: absolute;
+  width: 0;
+  height: 0;
+  transform: translate(-50%, -50%);
+  animation-name: bloom-fade;
+  animation-timing-function: ease-out;
+  animation-fill-mode: forwards;
+}
+
+.impact-particle {
+  position: absolute;
+  width: 5px;
+  height: 20px;
+  border-radius: 999px;
+  background: linear-gradient(180deg, #ffe3b4 0%, #ff9500 55%, #ff4f00 100%);
+  box-shadow: 0 0 10px #ff8a00;
+  transform-origin: center bottom;
+  transform: rotate(var(--particle-angle)) translateY(-4px) scaleY(1);
+  animation: impact-particle-burst .52s ease-out forwards;
 }
 
 .job {
@@ -105,6 +161,7 @@
   z-index: 1;
   color: #ffffff;
   padding: 2rem;
+  pointer-events: none;
 
   & > div {
     position: absolute;
@@ -202,7 +259,7 @@
 
 @keyframes space-float {
   0% {
-    transform: translateY(calc(var(--float-distance) * -1)) rotate(var(--asset-rotation));
+    transform: translateY(var(--float-distance-negative)) rotate(var(--asset-rotation));
   }
 
   100% {
@@ -210,9 +267,58 @@
   }
 }
 
+@keyframes plasma-shot {
+  0% {
+    transform: translate(-50%, -50%) scale(0.75);
+    opacity: 1;
+  }
+
+  85% {
+    opacity: 1;
+  }
+
+  100% {
+    transform: translate(calc(-50% + var(--shot-dx)), calc(-50% + var(--shot-dy))) scale(1.05);
+    opacity: 0.95;
+  }
+}
+
+@keyframes bloom-fade {
+  0% {
+    opacity: .95;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes impact-particle-burst {
+  0% {
+    transform: rotate(var(--particle-angle)) translateY(-4px) scaleY(1);
+    opacity: 1;
+  }
+
+  100% {
+    transform: rotate(var(--particle-angle)) translateY(-54px) scaleY(.2);
+    opacity: 0;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .space-asset {
     animation: none;
     transform: translateY(0) rotate(var(--asset-rotation));
+  }
+
+  .plasma-bullet {
+    animation: none;
+    transform: translate(calc(-50% + var(--shot-dx)), calc(-50% + var(--shot-dy))) scale(1);
+  }
+
+  .impact-bloom,
+  .impact-particle {
+    animation: none;
+    opacity: 0;
   }
 }
