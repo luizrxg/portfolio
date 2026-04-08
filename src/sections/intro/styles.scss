@@ -5,6 +5,7 @@
   justify-content: space-between;
   min-height: 1300px;
   position: relative;
+  overflow: hidden;
   background-color: #02A2D2;
   z-index: 1;
 }
@@ -25,7 +26,7 @@
   display: flex;
   flex-direction: column;
   align-items: start;
-  margin-top: 14rem;
+  margin-top: 12rem;
   margin-left: 16rem;
   margin-right: auto;
 
@@ -35,6 +36,27 @@
     color: #F0F8FF;
     line-height: 1;
     font-family: var(--font-serif);
+  }
+}
+
+.greeting-letter {
+  opacity: 0;
+}
+
+.greeting-letter, .presenting-letter {
+  display: inline-block;
+  min-width: .4ch;
+  height: 100%;
+  user-select: none;
+  cursor: pointer;
+
+}
+
+.greeting-letter.not-animating, .presenting-letter {
+  transition-duration: 200ms;
+
+  &:hover {
+    transform: translateY(-50px) !important;
   }
 }
 
@@ -62,35 +84,20 @@
   text-shadow: 0 0 5px #ffffff50;
 }
 
-.greeting-letter {
-  opacity: 0;
-}
-
-.greeting-letter, .presenting-letter {
-  display: inline-block;
-  min-width: .4ch;
-  height: 100%;
-  user-select: none;
-  cursor: pointer;
-
-}
-
-.greeting-letter.not-animating, .presenting-letter {
-  transition-duration: 200ms;
-
-  &:hover {
-    transform: translateY(-50px) !important;
-  }
-}
 
 .hills {
   width: 100%;
+  height: auto;
   max-height: 1300px;
   position: absolute;
   bottom: 0;
   left: 0;
   pointer-events: none;
   object-fit: cover;
+  transform: translateZ(0);
+  transform-origin: center bottom;
+  will-change: transform;
+  contain: paint;
 }
 
 .cloud {

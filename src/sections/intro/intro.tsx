@@ -114,8 +114,8 @@ export default function Intro() {
         className="cloud"
         width={800}
         height={345}
-        loading="eager"
-        priority
+        loading="lazy"
+        decoding="async"
       />
       <div className="greeting-text">
         <Letters
@@ -138,8 +138,10 @@ export default function Intro() {
         className="hills"
         width={5760}
         height={3838}
-        loading="eager"
-        priority
+        preload
+        sizes="100vw"
+        quality={90}
+        decoding="async"
       />
 
       <div className="presenting-text-container">

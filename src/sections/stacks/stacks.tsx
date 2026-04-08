@@ -144,6 +144,10 @@ export default function Stacks() {
             alt="Briefcase"
             width={2849}
             height={2371}
+            preload
+            sizes="880px"
+            quality={90}
+            decoding="async"
           />
           <div className="stickers-zone">
             {stickerItems.map((sticker) => (
