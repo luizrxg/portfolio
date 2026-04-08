@@ -17,8 +17,8 @@ export default function String({
   const svgRef = useRef<SVGSVGElement | null>(null);
 
   const safeWidth = useMemo(() => Math.max(Math.round(width), 60), [width]);
-  const startX = 20;
-  const endX = Math.max(safeWidth - 10, startX + 10);
+  const startX = 0;
+  const endX = safeWidth;
   const centerY = height / 2;
   const centerX = (startX + endX) / 2;
   const finalPath = useMemo(

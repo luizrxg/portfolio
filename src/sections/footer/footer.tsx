@@ -33,7 +33,7 @@ export default function Footer() {
         return;
       }
 
-      setFooterWidth(container.current.clientWidth);
+      setFooterWidth(container.current.clientWidth - 160);
     };
 
     updateWidth();
