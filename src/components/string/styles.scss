@@ -1,0 +1,18 @@
+.string {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.string-svg {
+  display: block;
+  max-width: 100%;
+}
+
+.string-path {
+  stroke: #181A18;
+  stroke-width: 2;
+  fill: transparent;
+}
+
