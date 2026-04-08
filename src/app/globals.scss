@@ -63,3 +63,13 @@ h1 {
 * {
   -ms-overflow-style: none;
 }
+
+@media only screen and (max-width: 1900px) {
+  #intro, #about, #stacks, #experience, footer {
+    display: none !important;
+  }
+
+  .resolution-warning {
+    display: flex !important;
+  }
+}
