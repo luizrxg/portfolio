@@ -33,7 +33,7 @@ export default function Footer() {
         return;
       }
 
-      setFooterWidth(container.current.clientWidth - 200);
+      setFooterWidth(container.current.clientWidth);
     };
 
     updateWidth();
@@ -182,6 +182,7 @@ export default function Footer() {
         width={footerWidth}
         height={300}
       />
+      <span>Made with Green Sock Animation Platform ©</span>
       <span
         ref={toast}
         className="copied-toast"

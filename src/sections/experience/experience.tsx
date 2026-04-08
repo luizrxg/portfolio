@@ -132,7 +132,7 @@ const floatingAssets: FloatingAsset[] = [
   { id: 'pluto', Asset: PlutoSVG, top: '70%', right: '8%', size: 62, opacity: 1, drift: 15, duration: 8.8, delay: -1.1, rotation: -14, zIndex: 0 },
   { id: 'saturn', Asset: SaturnSVG, top: '78%', left: '16%', size: 146, opacity: 1, drift: 25, duration: 12.9, delay: -6.1, rotation: 10, zIndex: 0 },
   { id: 'ring-ship-a', Asset: RingShipSVG, top: '14%', left: '44%', size: 76, opacity: 1, drift: 21, duration: 9.7, delay: -4.6, rotation: 18, zIndex: 0 },
-  { id: 'ring-ship-b', Asset: RingShipSVG, top: '66%', right: '23%', size: 94, opacity: 1, drift: 23, duration: 11.8, delay: -3.3, rotation: -22, zIndex: 0 },
+  { id: 'ring-ship-b', Asset: RingShipSVG, top: '60%', right: '23%', size: 94, opacity: 1, drift: 23, duration: 11.8, delay: -3.3, rotation: -22, zIndex: 0 },
   { id: 'satellite-a', Asset: SatelliteSVG, top: '30%', right: '33%', size: 72, opacity: 1, drift: 27, duration: 10.2, delay: -5.2, rotation: 14, zIndex: 0 },
   { id: 'satellite-b', Asset: SatelliteSVG, top: '84%', right: '41%', size: 58, opacity: 1, drift: 18, duration: 8.6, delay: -2.4, rotation: -12, zIndex: 0 },
   { id: 'station-a', Asset: StationSVG, top: '40%', left: '42%', size: 118, opacity: 1, drift: 24, duration: 13.1, delay: -0.5, rotation: -16, zIndex: 0 },
