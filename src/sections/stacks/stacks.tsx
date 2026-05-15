@@ -100,12 +100,10 @@ export default function Stacks() {
       { imageSrc: '/assets/images/figma.png',      peelDirection: 35,  rotate: -10, initialPosition: { x: 409, y: 169 } },
       { imageSrc: '/assets/images/zod.png',        peelDirection: 352, rotate: 7,   initialPosition: { x: 7,   y: 7   } },
       { imageSrc: '/assets/images/zustand.png',    peelDirection: 97,  rotate: -6,  initialPosition: { x: 393, y: 7   } },
-      { imageSrc: '/assets/images/three.png',      peelDirection: 214, rotate: -15, initialPosition: { x: 470, y: 111 } },
       { imageSrc: '/assets/images/storybook.png',  peelDirection: 281, rotate: -1,  initialPosition: { x: 700, y: 300 } },
       { imageSrc: '/assets/images/graphql.png',    peelDirection: 118, rotate: 13,  initialPosition: { x: 272, y: 238 } },
       { imageSrc: '/assets/images/html.png',       peelDirection: 45,  rotate: 3,   initialPosition: { x: 171, y: 157 } },
       { imageSrc: '/assets/images/css.png',        peelDirection: 265, rotate: 9,   initialPosition: { x: 370, y: 296 } },
-      { imageSrc: '/assets/images/php.png',        peelDirection: 72,  rotate: 0,   initialPosition: { x: 144, y: 63  } },
       { imageSrc: '/assets/images/kotlin.png',     peelDirection: 270, rotate: 9,   initialPosition: { x: 493, y: 7   } },
       { imageSrc: '/assets/images/android.png',    peelDirection: 45,  rotate: -11, initialPosition: { x: 270, y: 150 } },
     ]

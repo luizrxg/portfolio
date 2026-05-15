@@ -129,7 +129,7 @@ export default function About() {
           >
             <span>I'm a Front-end Developer with 4 years of experience </span>
             <span>skilled in technologies such as React, Next.js, Angular, </span>
-            <span>Tailwind, PHP, Wordpress, C#, ASP. NET, Node.js, JavaScript/TypeScript, Kotlin, </span>
+            <span>Tailwind, Wordpress, C#, ASP. NET, Node.js, JavaScript/TypeScript, Kotlin, </span>
             <span>Jetpack Compose, Android, SQL, Java and Spring Boot and also specialized in UX/UI, </span>
             <span>APIs REST, web applications e agile methodologies, </span>
             <span>currently studying Information Systems at the Federal University of Uberlândia. </span>
